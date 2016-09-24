@@ -139,6 +139,20 @@ SESSION_CONFIGS = [
         'num_demo_participants': 1,
         'app_sequence': ['gssas_holtlaury'],
     },
+    {
+        'name': 'tdictator',
+        'display_name': "Triple Dictator",
+        'num_demo_participants': 2,
+        'app_sequence': ['triple_dictator'],
+    },
+    {
+        'name': 'full_game',
+        'display_name': "Full Game (except trust)",
+        'num_demo_participants': 2,
+        'app_sequence': ['big_five',
+                         'triple_dictator',
+                         'gssas_holtlaury'],
+    },
 ]
 
 # anything you put after the below line will override

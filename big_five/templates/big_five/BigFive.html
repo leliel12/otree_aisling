@@ -11,8 +11,8 @@
 <style>
     li.field-container select {
         display: inline;
-        margin: 5px;
-        width: 70px;
+        margin: 2px;
+        width: 135px;
     }
     li.field-container label {
         font-weight: normal;
@@ -32,22 +32,24 @@
     </div>
 </div>
 
+{% comment %}
 <div class="row">
     <div class="col-md-12">
         <table class="table table-striped">
             <tr>
-                {% for level, desc in agree_levels %}
+                {% for level, desc in Constants.agree_levels %}
                 <th class="text-center">{{level}}</th>
                 {% endfor %}
             </tr>
             <tr>
-                {% for level, desc in agree_levels %}
+                {% for level, desc in Constants.agree_levels %}
                 <td class="text-center">{{desc}}</td>
                 {% endfor %}
             </tr>
         </table>
     </div>
 </div>
+{% endcomment %}
 
 <div class="row">
     <div class="col-md-6">

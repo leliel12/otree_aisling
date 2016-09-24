@@ -55,10 +55,6 @@ class BigFive(Page):
         'is_sophisticated_in_art_music_or_literature'
     ]
 
-    def vars_for_template(self):
-        return {"agree_levels": sorted(Constants.agree_level_desc.items())}
-
-
 
 page_sequence = [
     BigFive

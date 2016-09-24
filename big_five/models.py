@@ -22,7 +22,7 @@ class Constants(BaseConstants):
         4: "Agree a little",
         5: "Agree Strongly",
     }
-    agree_levels = sorted(agree_level_desc.keys())
+    agree_levels = sorted(agree_level_desc.items())
 
 class Subsession(BaseSubsession):
     pass
