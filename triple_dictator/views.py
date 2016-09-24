@@ -28,6 +28,6 @@ class Results(Page):
 
 
 page_sequence = [
-    #~ Introduction,
+    Introduction,
     Question, TrustTypeWaitPage, Results
 ]
