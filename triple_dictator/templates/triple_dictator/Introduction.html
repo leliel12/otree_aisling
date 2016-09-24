@@ -1,0 +1,29 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Triple Dictator Game Instructions
+{% endblock %}
+
+{% block content %}
+<div class="row lead">
+    <div class="col-md-12">
+        <p>
+            You will be paired randomly and anonymously with another participant. In this study,
+            <strong>you will be Participant A</strong> and the other Participant B.
+        </p>
+        <p>
+            There are {{Constants.allocated_amount}} to split. <strong>You will decide how many</strong>
+            of this ammouunt you will give. Then you will be kept the rest and the Player B will recieve the triple that you give
+        </p>
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+{% endblock %}
+
+
+

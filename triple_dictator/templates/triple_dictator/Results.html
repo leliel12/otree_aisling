@@ -1,0 +1,25 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+<div class="row lead">
+    <div class="col-md-12">
+        <ul>
+            <li><strong>You keept:</strong> {{keept}}</li>
+            <li><strong>You give:</strong> {{give}}</li>
+            <li><strong>Trust Type:</strong> {{player.trust_type}}</li>
+        </ul>
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+{% endblock %}
+
+
