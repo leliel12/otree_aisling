@@ -38,7 +38,15 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    pass
+
+    ammount_given = models.CurrencyField(
+        doc="""Amount the sender decided to give to the other player""",
+        min=0, max=Constants.allocated_amount, widget=widgets.SliderInput(),
+        verbose_name='I will give (from 0 to %i)' % Constants.allocated_amount)
+
+    ammount_sent_back = models.CurrencyField(
+        doc="""Amount the returner decided to sent_back to the other player""",
+        min=0, widget=widgets.SliderInput())
 
 
 class Player(BasePlayer):
@@ -46,13 +54,13 @@ class Player(BasePlayer):
     expect_other_player_to_return = models.CurrencyField(
         doc="""What do you expect that the other player will return?""",
         min=0, max=Constants.allocated_amount*3, widget=widgets.SliderInput(),
-        verbose_name='I will give (from 0 to %i)' % (Constants.allocated_amount * 3))
+        verbose_name='The anoher player will return (from 0 to %i)' % (Constants.allocated_amount * 3))
     trust_type = models.CharField(max_length=20, choices=Constants.ttypes)
 
     expect_other_player_to_return_revealed = models.CurrencyField(
         doc="""What do you expect that the other player will return?""",
         min=0, max=Constants.allocated_amount*3, widget=widgets.SliderInput(),
-        verbose_name='I will give (from 0 to %i)' % (Constants.allocated_amount * 3))
+        verbose_name='The anoher player will return (from 0 to %i)' % (Constants.allocated_amount * 3))
 
     def role(self):
         return {1: Constants.sender, 2: Constants.returner}[self.id_in_group]

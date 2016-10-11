@@ -40,6 +40,12 @@ class AsignmentPage(WaitPage):
             self.group(subsession)
 
 
+class Instructions(Page):
+
+    def is_displayed(self):
+        return self.subsession.round_number == 1
+
+
 class Expect(Page):
 
     form_model = models.Player
@@ -49,10 +55,18 @@ class Expect(Page):
     def is_displayed(self):
         return self.player.role() == Constants.sender
 
-
     def vars_for_template(self):
         returner = self.group.get_player_by_role(Constants.returner)
         return {"returner": returner}
+
+
+class Offer(Page):
+
+    form_model = models.Group
+    form_fields = ["ammount_given"]
+
+    def is_displayed(self):
+        return self.player.role() == Constants.sender
 
 
 class OfferWaitPage(WaitPage):
@@ -60,11 +74,35 @@ class OfferWaitPage(WaitPage):
     body_text = "Waiting for the sender"
 
 
+class Return(Page):
+
+    form_model = models.Group
+    form_fields = ["ammount_sent_back"]
+
+    def is_displayed(self):
+        return self.player.role() == Constants.returner
+
+    def vars_for_template(self):
+        return {"return_max": int(self.group.ammount_given * 3)}
+
+
+class ReturnWaitPage(WaitPage):
+    title_text = "Waiting for the returner"
+    body_text = "Waiting for the returner"
+
+
+class Results(Page):
+
+    def vars_for_template(self):
+        return {"return_max": int(self.group.ammount_given * 3)}
 
 
 
 page_sequence = [
     AsignmentPage,
+    Instructions,
     Expect,
-    OfferWaitPage
+    Offer, OfferWaitPage,
+    Return, ReturnWaitPage,
+    Results
 ]

@@ -154,11 +154,12 @@ SESSION_CONFIGS = [
     },
     {
         'name': 'full_game',
-        'display_name': "Full Game (except trust)",
+        'display_name': "Full Game",
         'num_demo_participants': 2,
         'app_sequence': ['big_five',
                          'triple_dictator',
-                         'gssas_holtlaury'],
+                         'gssas_holtlaury',
+                         'trust'],
     },
 ]
 
