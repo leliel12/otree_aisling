@@ -1,0 +1,67 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+    What do you expect the other player to return
+{% endblock %}
+
+
+{% block styles %}
+<style>
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div id="first-div">
+    <div class="row lead">
+        <div class="col-md-12">
+            {% formfield player.expect_other_player_to_return %}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="pull-right">
+                <button class="btn btn-primary btn-large btn-primary next-button" id="first">Next</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div id="second-div" style="display: none;">
+    <div class="row lead">
+        <p>The returner player is: <strong class="text-info">{{returner.trust_type}}</strong></p>
+        <div class="col-md-12">
+            {% formfield player.expect_other_player_to_return_revealed %}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="pull-right">{% next_button %}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#first").click(function(){
+        $("#first-div").hide("fast");
+        $("#second-div").show("fast");
+        return false;
+    });
+
+});
+</script>
+{% endblock %}
+
+
+
+

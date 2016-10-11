@@ -146,6 +146,13 @@ SESSION_CONFIGS = [
         'app_sequence': ['triple_dictator'],
     },
     {
+        'name': 'trust',
+        'display_name': "Trust",
+        'num_demo_participants': 2,
+        'auto_ttype': True,
+        'app_sequence': ['trust'],
+    },
+    {
         'name': 'full_game',
         'display_name': "Full Game (except trust)",
         'num_demo_participants': 2,

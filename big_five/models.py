@@ -24,6 +24,7 @@ class Constants(BaseConstants):
     }
     agree_levels = sorted(agree_level_desc.items())
 
+
 class Subsession(BaseSubsession):
     pass
 

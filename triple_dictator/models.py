@@ -40,6 +40,7 @@ class Group(BaseGroup):
                 Constants.ttype_not_trustworthy
                 if idx < half else
                 Constants.ttype_trustworthy)
+            player.participant.vars["trust_type"] = player.trust_type
 
 
 class Player(BasePlayer):
