@@ -20,7 +20,7 @@ Your app description
 class Constants(TDConstants):
     name_in_url = 'trust'
     players_per_group = 2
-    num_rounds = 1
+    num_rounds = 10
 
     amount_allocated = c(100)
 

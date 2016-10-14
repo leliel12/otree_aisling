@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import random
+import itertools as it
 
 from otree.api import Currency as c, currency_range
 from . import models
@@ -18,26 +19,45 @@ class AsignmentPage(WaitPage):
     def is_displayed(self):
         return self.subsession.round_number == 1
 
-    def group(self, subsession):
-        by_ttype = {k: [] for k in Constants.ttypes}
-        for player in subsession.get_players():
-            player.trust_type = player.participant.vars["trust_type"]
-            by_ttype[player.trust_type].append(player)
+    def _get_group_candidates(self, tw, ntw):
+        def shift(seq, n):
+            seq = list(seq)
+            n = n % len(seq)
+            return seq[n:] + seq[:n]
+        mtx = [
+            shift(it.product([p], ntw), idx) for idx, p in enumerate(tw)]
+        mtx_t = list(zip(*mtx))
+        random.shuffle(mtx_t)
+        return it.cycle(mtx_t)
 
-        map(random.shuffle, by_ttype.values())
-        # match players
-        matched = zip(*by_ttype.values())
+    def _select_groups(self, group_candidates, num_rounds):
+        def invert_groups(groups):
+            return [list(reversed(g)) for g in groups]
+        first_half = [
+            list(next(group_candidates)) for _ in range(0, num_rounds/2)]
+        second_half = [invert_groups(g) for g in first_half]
+        return first_half + second_half
 
-        mtx = []
-        for p1, p2 in matched:
-            if random.choice([True, False]):
-                p1, p2 = p2, p1
-            mtx.append([p1, p2])
-        subsession.set_group_matrix(mtx)
+    def _participants_to_players(self, participants, subsession):
+        p2p = {p.participant: p for p in subsession.get_players()}
+        return [map(p2p.get, g) for g in  participants]
 
     def after_all_players_arrive(self):
+        participants = [p.participant for p in self.subsession.get_players()]
+        trustworthy = [
+            p for p in participants
+            if p.vars["trust_type"] == Constants.ttype_trustworthy]
+        not_trustworthy = [
+            p for p in participants
+            if p.vars["trust_type"] == Constants.ttype_not_trustworthy]
+
+        group_candidates = self._get_group_candidates(trustworthy, not_trustworthy)
+        groups = self._select_groups(group_candidates, Constants.num_rounds)
+
         for subsession in self.subsession.in_rounds(1, Constants.num_rounds):
-            self.group(subsession)
+            group = groups[subsession.round_number - 1]
+            players = self._participants_to_players(group, subsession)
+            subsession.set_group_matrix(players)
 
 
 class Instructions(Page):
