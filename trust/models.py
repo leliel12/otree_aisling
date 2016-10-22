@@ -22,7 +22,7 @@ class Constants(TDConstants):
     players_per_group = 2
     num_rounds = 10
 
-    amount_allocated = c(100)
+    amount_allocated = c(10)
 
     sender = "Sender"
     returner = "Returner"
@@ -41,8 +41,8 @@ class Group(BaseGroup):
 
     ammount_given = models.CurrencyField(
         doc="""Amount the sender decided to give to the other player""",
-        min=0, max=Constants.allocated_amount, widget=widgets.SliderInput(),
-        verbose_name='I will give (from 0 to %i)' % Constants.allocated_amount)
+        min=0, max=Constants.amount_allocated , widget=widgets.SliderInput(),
+        verbose_name='I will give (from 0 to %i)' % Constants.amount_allocated)
 
     ammount_sent_back = models.CurrencyField(
         doc="""Amount the returner decided to sent_back to the other player""",
@@ -51,16 +51,19 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
-    expect_other_player_to_return = models.CurrencyField(
+    expect_other_player_to_return = models.IntegerField(
         doc="""What do you expect that the other player will return?""",
-        min=0, max=Constants.allocated_amount*3, widget=widgets.SliderInput(),
-        verbose_name='The anoher player will return (from 0 to %i)' % (Constants.allocated_amount * 3))
-    trust_type = models.CharField(max_length=20, choices=Constants.ttypes)
+        min=0, max=300, widget=widgets.SliderInput(),
+        verbose_name='What percentage do you think the other will return? (from 0 to 300%)')
 
-    expect_other_player_to_return_revealed = models.CurrencyField(
+    expect_other_player_to_return_revealed = models.IntegerField(
         doc="""What do you expect that the other player will return?""",
-        min=0, max=Constants.allocated_amount*3, widget=widgets.SliderInput(),
-        verbose_name='The anoher player will return (from 0 to %i)' % (Constants.allocated_amount * 3))
+        min=0, max=300, widget=widgets.SliderInput(),
+        verbose_name='What percentage do you think the other will return? (from 0 to 300%)')
 
     def role(self):
         return {1: Constants.sender, 2: Constants.returner}[self.id_in_group]
+
+    @property
+    def trust_type(self):
+        return self.participant.vars["trust_type"]

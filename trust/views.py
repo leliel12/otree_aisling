@@ -10,6 +10,11 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
+def vars_for_all_templates(self):
+    return {
+        "auto_type": self.session.config.get("auto_ttype")}
+
+
 class AsignmentPage(WaitPage):
 
     title_text = "Groups Assignments"

@@ -119,7 +119,7 @@ mturk_hit_settings = {
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = {
-    'real_world_currency_per_point': 0.01,
+    'real_world_currency_per_point': 0.1,
     'participation_fee': 1.00,
     'num_bots': 6,
     'doc': "",
@@ -148,7 +148,7 @@ SESSION_CONFIGS = [
     {
         'name': 'trust',
         'display_name': "Trust",
-        'num_demo_participants': 6,
+        'num_demo_participants': 2,
         'auto_ttype': True,
         'app_sequence': ['trust'],
     },

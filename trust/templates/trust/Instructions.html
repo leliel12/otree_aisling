@@ -26,6 +26,16 @@
         A.
     </p>
 </div>
+
+{% if auto_type %}
+<div class="row alert alert-warning">
+    <h4>Warning: <code>auto_type</code> enabled</h4>
+    This is a demo session and the
+    <strong class="text-info">trust_type</strong>
+    of the players was automatically asigned.
+</div>
+{% endif %}
+
 <div class="row lead">
     <div class="col-md-12">
         {% next_button %}

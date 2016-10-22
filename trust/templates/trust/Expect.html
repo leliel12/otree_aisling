@@ -34,7 +34,13 @@
 
 <div id="second-div" style="display: none;">
     <div class="row lead">
-        <p>The returner player is: <strong class="text-info">{{returner.trust_type}}</strong></p>
+        <p>
+            The returner player is:
+            {% if returner.trust_type == Constants.ttype_trustworthy %}
+                <strong class="text-success">{{returner.trust_type}}</strong></p>
+            {% else %}
+                <strong class="text-warning">{{returner.trust_type}}</strong></p>
+            {% endif %}
         <div class="col-md-12">
             {% formfield player.expect_other_player_to_return_revealed %}
         </div>
