@@ -148,7 +148,7 @@ SESSION_CONFIGS = [
     {
         'name': 'trust',
         'display_name': "Trust",
-        'num_demo_participants': 2,
+        'num_demo_participants': 6,
         'auto_ttype': True,
         'app_sequence': ['trust'],
     },
