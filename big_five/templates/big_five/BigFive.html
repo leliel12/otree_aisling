@@ -22,7 +22,7 @@
 
 
 {% block content %}
-<div id="hidecontent" style="display: none;">
+<div id="hidecontent" >
 <div class="row lead">
     <div class="col-md-12">
         Here are a number of characteristics that may or may not apply to you. For example,
@@ -32,35 +32,79 @@
     </div>
 </div>
 
-{% comment %}
 <div class="row">
-    <div class="col-md-12">
-        <table class="table table-striped">
-            <tr>
-                {% for level, desc in Constants.agree_levels %}
-                <th class="text-center">{{level}}</th>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for level, desc in Constants.agree_levels %}
-                <td class="text-center">{{desc}}</td>
-                {% endfor %}
-            </tr>
-        </table>
+    <div class="col-md-6 col-md-offset-3 center text-center">
+        <label>{{form.computer.label}}</label>
+        <p><small>Please answer correctly otherwise you may not get your full payment</small></p>
+    </div>
+    <div class="col-md-4 col-md-offset-4 center text-center">
+        {% formfield player.computer with label=""%}
+        <hr/>
+    </div>
+    <div class="col-md-6 col-md-offset-3 center text-center">
+        <label>{{form.gender.label}}</label>
+    </div>
+    <div class="col-md-4 col-md-offset-4 center text-center">
+        {% formfield player.gender with label=""%}
     </div>
 </div>
-{% endcomment %}
+
+
+<div class="row">
+    <div class="col-md-12"><hr/></div>
+</div>
 
 <div class="row">
     <div class="col-md-6">
         <ol id="ol-forms-1">
-            {% for field in form %}
-            <li class="field-container big5-field" data-big5FieldNro="{{forloop.counter}}">{{field}} <label>{{field.label}}</label></li>
-            {% endfor %}
+            <li class='field-container'>{{form.is_talkative}} <label>{{form.is_talkative.label}}</label>
+            <li class='field-container'>{{form.tends_to_find_fault_with_others}} <label>{{form.tends_to_find_fault_with_others.label}}</label>
+            <li class='field-container'>{{form.does_a_thorough_job}} <label>{{form.does_a_thorough_job.label}}</label>
+            <li class='field-container'>{{form.is_depressed_blue}} <label>{{form.is_depressed_blue.label}}</label>
+            <li class='field-container'>{{form.is_original_comes_up_with_new_ideas}} <label>{{form.is_original_comes_up_with_new_ideas.label}}</label>
+            <li class='field-container'>{{form.is_reserved}} <label>{{form.is_reserved.label}}</label>
+            <li class='field-container'>{{form.is_helpful_and_unselfish_with_others}} <label>{{form.is_helpful_and_unselfish_with_others.label}}</label>
+            <li class='field-container'>{{form.can_be_somewhat_careless}} <label>{{form.can_be_somewhat_careless.label}}</label>
+            <li class='field-container'>{{form.is_relaxed_handles_stress_well}} <label>{{form.is_relaxed_handles_stress_well.label}}</label>
+            <li class='field-container'>{{form.is_curious_about_many_different_things}} <label>{{form.is_curious_about_many_different_things.label}}</label>
+            <li class='field-container'>{{form.is_full_of_energy}} <label>{{form.is_full_of_energy.label}}</label>
+            <li class='field-container'>{{form.starts_quarrels_with_others}} <label>{{form.starts_quarrels_with_others.label}}</label>
+            <li class='field-container'>{{form.is_a_reliable_worker}} <label>{{form.is_a_reliable_worker.label}}</label>
+            <li class='field-container'>{{form.can_be_tense}} <label>{{form.can_be_tense.label}}</label>
+            <li class='field-container'>{{form.is_ingenious_a_deep_thinker}} <label>{{form.is_ingenious_a_deep_thinker.label}}</label>
+            <li class='field-container'>{{form.generates_a_lot_of_enthusiasm}} <label>{{form.generates_a_lot_of_enthusiasm.label}}</label>
+            <li class='field-container'>{{form.has_a_forgiving_nature}} <label>{{form.has_a_forgiving_nature.label}}</label>
+            <li class='field-container'>{{form.tends_to_be_disorganized}} <label>{{form.tends_to_be_disorganized.label}}</label>
+            <li class='field-container'>{{form.worries_a_lot}} <label>{{form.worries_a_lot.label}}</label>
+            <li class='field-container'>{{form.has_an_active_imagination}} <label>{{form.has_an_active_imagination.label}}</label>
+            <li class='field-container'>{{form.tends_to_be_quiet}} <label>{{form.tends_to_be_quiet.label}}</label>
+            <li class='field-container'>{{form.is_generally_trusting}} <label>{{form.is_generally_trusting.label}}</label>
         </ol>
     </div>
     <div class="col-md-6">
         <ol id="ol-forms-2" start="23">
+            <li class='field-container'>{{form.tends_to_be_lazy}} <label>{{form.tends_to_be_lazy.label}}</label>
+            <li class='field-container'>{{form.is_emotionally_stable_not_easily_upset}} <label>{{form.is_emotionally_stable_not_easily_upset.label}}</label>
+            <li class='field-container'>{{form.is_inventive}} <label>{{form.is_inventive.label}}</label>
+            <li class='field-container'>{{form.has_an_assertive_personality}} <label>{{form.has_an_assertive_personality.label}}</label>
+            <li class='field-container'>{{form.can_be_cold_and_aloof}} <label>{{form.can_be_cold_and_aloof.label}}</label>
+            <li class='field-container'>{{form.perseveres_until_the_task_is_finished}} <label>{{form.perseveres_until_the_task_is_finished.label}}</label>
+            <li class='field-container'>{{form.can_be_moody}} <label>{{form.can_be_moody.label}}</label>
+            <li class='field-container'>{{form.values_artistic_aesthetic_experiences}} <label>{{form.values_artistic_aesthetic_experiences.label}}</label>
+            <li class='field-container'>{{form.is_sometimes_shy_inhibited}} <label>{{form.is_sometimes_shy_inhibited.label}}</label>
+            <li class='field-container'>{{form.is_considerate_and_kind_to_almost_everyone}} <label>{{form.is_considerate_and_kind_to_almost_everyone.label}}</label>
+            <li class='field-container'>{{form.does_things_efficiently}} <label>{{form.does_things_efficiently.label}}</label>
+            <li class='field-container'>{{form.remains_calm_in_tense_situations}} <label>{{form.remains_calm_in_tense_situations.label}}</label>
+            <li class='field-container'>{{form.prefers_work_that_is_routine}} <label>{{form.prefers_work_that_is_routine.label}}</label>
+            <li class='field-container'>{{form.is_outgoing_sociable}} <label>{{form.is_outgoing_sociable.label}}</label>
+            <li class='field-container'>{{form.is_sometimes_rude_to_others}} <label>{{form.is_sometimes_rude_to_others.label}}</label>
+            <li class='field-container'>{{form.makes_plans_and_follows_through_with_them}} <label>{{form.makes_plans_and_follows_through_with_them.label}}</label>
+            <li class='field-container'>{{form.gets_nervous_easily}} <label>{{form.gets_nervous_easily.label}}</label>
+            <li class='field-container'>{{form.likes_to_reflect_play_with_ideas}} <label>{{form.likes_to_reflect_play_with_ideas.label}}</label>
+            <li class='field-container'>{{form.has_few_artistic_interests}} <label>{{form.has_few_artistic_interests.label}}</label>
+            <li class='field-container'>{{form.likes_to_cooperate_with_others}} <label>{{form.likes_to_cooperate_with_others.label}}</label>
+            <li class='field-container'>{{form.is_easily_distracted}} <label>{{form.is_easily_distracted.label}}</label>
+            <li class='field-container'>{{form.is_sophisticated_in_art_music_or_literature}} <label>{{form.is_sophisticated_in_art_music_or_literature.label}}</label>
         </ol>
     </div>
 </div>
@@ -73,28 +117,6 @@
 </div>
 
 </div>
-{% endblock %}
-
-
-{% block scripts %}
-<script type="text/javascript">
-$(document).ready(function(){
-
-    setTimeout(function(){
-        $("div#hidecontent").show()
-    }, 500);
-
-    $("ol#ol-forms-1 > li.big5-field").each(function(idx, elem){
-        var $elem = $(elem);
-        var fieldNro = parseInt($elem.attr("data-big5FieldNro"));
-        if(fieldNro > 22){
-            $elem.appendTo("ol#ol-forms-2");
-        }
-    });
-
-
-});
-</script>
 {% endblock %}
 
 

@@ -17,7 +17,7 @@ class Constants(BaseConstants):
     name_in_url = 'triple_dictator'
     players_per_group = None
     num_rounds = 1
-    allocated_amount = c(100)
+    allocated_amount = c(10)
 
     ttype_trustworthy = "Trustworthy"
     ttype_not_trustworthy = "Not trustworthy"

@@ -8,6 +8,8 @@ class BigFive(Page):
 
     form_model = models.Player
     form_fields = [
+        "computer", "gender",
+
         'is_talkative',
         'tends_to_find_fault_with_others',
         'does_a_thorough_job',

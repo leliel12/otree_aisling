@@ -35,6 +35,14 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
+    computer = models.CharField(
+        max_length=10,
+        verbose_name="What computer are you sitting at?")
+    gender = models.CharField(
+        max_length=6, choices=["Male", "Female"],
+        widget=widgets.RadioSelectHorizontal,
+        verbose_name="What is your gender?")
+
     is_talkative = models.PositiveIntegerField(
         choices=Constants.agree_levels,
         verbose_name="Is talkative")
