@@ -1,3 +1,4 @@
+
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
@@ -9,12 +10,27 @@
 <div class="row lead">
     <div class="col-md-12">
         <p>
-            You will be paired randomly and anonymously with another participant. In this study,
-            <strong>you will be Participant A</strong> and the other Participant B.
+            There are {{1|c}} total.
+            Player A will receive all of the {{1|c}} and decide how to split the amount between him/herself and player B.
+            Player B starts off with {{0|c}}. Player B will receive triple the amount Player A decides to send over.
+            Player B cannot return any of the points sent over by Player A.
         </p>
         <p>
-            There are {{Constants.allocated_amount}} to split. <strong>You will decide how many</strong>
-            of this ammouunt you will give. Then you will be kept the rest and the Player B will recieve the triple that you give
+            <strong>Ex1.</strong> Player A starts out with {{1|c}} and decides to give {{0.5|c}} to Player B.
+            Player B receives 3 * {{0.5|c}} = {{1.5|c}} As a result, player A walks away with {{0.5|c}} while player B
+            walks away with {{1.5|c}}. Player B cannot return any of the points that Player A gives to him/her.
+        </p>
+        <p>
+            <strong>Ex2.</strong> Player A decides to give none of the {{1|c}} to player B.
+            Player B ends up with {{0|c}} and player A takes all of the {{1|c}}.
+        </p>
+        <p>
+            <strong>Ex3.</strong> Player A decides to give {{0.75|c}} of the {{1|c}} to player B.
+            Player B receives 3 * {{0.75|c}}= {{2.25|c}} points.
+            Player A ends up with {{0.25|c}} and player B {{2.25|c}}. Player B can't return any of the points received.
+        </p>
+        <p>
+            The total points you end with will affect your payoff in the following manner:
         </p>
     </div>
 </div>
@@ -24,6 +40,4 @@
     </div>
 </div>
 {% endblock %}
-
-
 
