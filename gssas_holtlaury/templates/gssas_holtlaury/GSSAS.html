@@ -1,3 +1,4 @@
+
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
@@ -30,6 +31,9 @@
 
 <div class="row">
     <div class="col-md-12">
+        <p>
+        Please read the following questions and answer to the best of your knowledge. If you feel confused or if the question needs more explanations, please raise your hand and someone will answer your questions.
+        </p>
         <ul>
             {% for field in form %}
             <li class="field-container"><strong class="text-info">Q.</strong> {% formfield field %}</li>
