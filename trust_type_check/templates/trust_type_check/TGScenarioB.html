@@ -2,17 +2,15 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Results
+    Trust Game Hypotetical Scenario B
 {% endblock %}
 
 {% block content %}
 <div class="row lead">
     <div class="col-md-12">
-        <ul>
-            <li><strong>You keept:</strong> {{keept}}</li>
-            <li><strong>You give:</strong> {{give}}</li>
-            {# <li><strong>Trust Type:</strong> {{player.trust_type}}</li> #}
-        </ul>
+        <p>Here is a hypothetical scenario.</p>
+        <p><strong>Suppose</strong> you are Player B, Player A sent you $10. You now have $30..</p>
+        {% formfield player.trust_scenario_you_are_B %}
     </div>
 </div>
 <div class="row lead">
@@ -21,5 +19,6 @@
     </div>
 </div>
 {% endblock %}
+
 
 

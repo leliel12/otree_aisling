@@ -8,7 +8,7 @@ from otree.api import (
     Currency as c, currency_range, safe_json
 )
 
-from triple_dictator.models import Constants as TDConstants
+from trust_type_check.models import Constants as TTCConstants
 
 author = 'Your name here'
 
@@ -17,7 +17,7 @@ Your app description
 """
 
 
-class Constants(TDConstants):
+class Constants(TTCConstants):
     name_in_url = 'trust'
     players_per_group = 2
     num_rounds = 2

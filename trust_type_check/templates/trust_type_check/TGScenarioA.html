@@ -1,0 +1,24 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Trust Game Hypotetical Scenario A
+{% endblock %}
+
+{% block content %}
+<div class="row lead">
+    <div class="col-md-12">
+        <p>Here is a hypothetical scenario.</p>
+        <p><strong>Suppose</strong> you are Player A. You have $10.</p>
+        {% formfield player.trust_scenario_you_are_A %}
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+{% endblock %}
+
+
+

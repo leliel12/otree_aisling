@@ -140,10 +140,10 @@ SESSION_CONFIGS = [
         'app_sequence': ['gssas_holtlaury'],
     },
     {
-        'name': 'tdictator',
-        'display_name': "Triple Dictator",
+        'name': 'tt_checker',
+        'display_name': "Trust Type Checker",
         'num_demo_participants': 2,
-        'app_sequence': ['triple_dictator'],
+        'app_sequence': ['trust_type_check'],
     },
     {
         'name': 'trust',
@@ -157,8 +157,8 @@ SESSION_CONFIGS = [
         'display_name': "Full Game",
         'num_demo_participants': 2,
         'app_sequence': ['big_five',
-                         'triple_dictator',
                          'gssas_holtlaury',
+                         'trust_type_check',
                          'trust'],
     },
 ]
