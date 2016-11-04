@@ -30,7 +30,12 @@ class Constants(TTCConstants):
 
 class Subsession(BaseSubsession):
 
+    treatment_reveal_type = models.BooleanField()
+    treatment_trustworthy_first = models.BooleanField()
+
     def before_session_starts(self):
+        self.treatment_reveal_type = self.session.config['treatment_reveal_type']
+        self.treatment_trustworthy_first = self.session.config['treatment_trustworthy_first']
         if self.round_number == 1 and self.session.config.get("auto_ttype"):
             ttypes = itertools.cycle(Constants.ttypes)
             for player in self.get_players():

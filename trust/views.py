@@ -56,7 +56,11 @@ class AsignmentPage(WaitPage):
             p for p in participants
             if p.vars["trust_type"] == Constants.ttype_not_trustworthy]
 
-        group_candidates = self._get_group_candidates(trustworthy, not_trustworthy)
+        group_candidates = (
+            self._get_group_candidates(trustworthy, not_trustworthy)
+            if self.subsession.treatment_trustworthy_first else
+            self._get_group_candidates(not_trustworthy, trustworthy))
+
         groups = self._select_groups(group_candidates, Constants.num_rounds)
 
         for subsession in self.subsession.in_rounds(1, Constants.num_rounds):
@@ -74,6 +78,14 @@ class Instructions(Page):
 class Expect(Page):
 
     form_model = models.Player
+
+
+    def get_form_fields(self):
+        fields = ["expect_other_player_to_return"]
+        if self.subsession.treatment_reveal_type:
+            fields.append("expect_other_player_to_return_revealed")
+        return fields
+
     form_fields = ["expect_other_player_to_return",
                    "expect_other_player_to_return_revealed"]
 
@@ -82,7 +94,8 @@ class Expect(Page):
 
     def vars_for_template(self):
         returner = self.group.get_player_by_role(Constants.returner)
-        return {"returner": returner}
+        reveal = self.subsession.treatment_reveal_type
+        return {"returner": returner, "reveal": reveal}
 
 
 class Offer(Page):
