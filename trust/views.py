@@ -124,6 +124,10 @@ class ReturnWaitPage(WaitPage):
     title_text = "Waiting for the returner"
     body_text = "Waiting for the returner"
 
+    def after_all_players_arrive(self):
+        if self.subsession.round_number == Constants.num_rounds:
+            self.group.set_payoff()
+
 
 class Results(Page):
 

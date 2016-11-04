@@ -43,9 +43,12 @@ class Subsession(BaseSubsession):
                 if idx < half else
                 Constants.ttype_trustworthy)
             player.participant.vars["trust_type"] = player.trust_type
+            player.payoff = player.ammount_given
+
 
 class Group(BaseGroup):
     pass
+
 
 class Player(BasePlayer):
 
