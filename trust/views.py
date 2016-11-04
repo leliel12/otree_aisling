@@ -79,18 +79,14 @@ class Expect(Page):
 
     form_model = models.Player
 
+    def is_displayed(self):
+        return self.player.role() == Constants.sender
 
     def get_form_fields(self):
         fields = ["expect_other_player_to_return"]
         if self.subsession.treatment_reveal_type:
             fields.append("expect_other_player_to_return_revealed")
         return fields
-
-    form_fields = ["expect_other_player_to_return",
-                   "expect_other_player_to_return_revealed"]
-
-    def is_displayed(self):
-        return self.player.role() == Constants.sender
 
     def vars_for_template(self):
         returner = self.group.get_player_by_role(Constants.returner)
