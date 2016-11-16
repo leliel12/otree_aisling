@@ -32,11 +32,9 @@ class Constants(TTCConstants):
 class Subsession(BaseSubsession):
 
     treatment_reveal_type = models.BooleanField()
-    treatment_trustworthy_first = models.BooleanField()
 
     def before_session_starts(self):
         self.treatment_reveal_type = self.session.config['treatment_reveal_type']
-        self.treatment_trustworthy_first = self.session.config['treatment_trustworthy_first']
 
         for player in self.get_players():
             if self.round_number == 1:
@@ -57,9 +55,12 @@ class Group(BaseGroup):
         min=0, max=Constants.amount_allocated , widget=widgets.SliderInput(),
         verbose_name='I will give (from 0 to %i)' % Constants.amount_allocated)
 
+    percentage_sent_back = models.PositiveIntegerField(
+        verbose_name="Percentage to return (from 0 to 300%)", min=0, max=300,
+         widget=widgets.SliderInput())
+
     ammount_sent_back = models.CurrencyField(
-        doc="""Amount the returner decided to sent_back to the other player""",
-        min=0, widget=widgets.SliderInput())
+        doc="""Amount the returner decided to sent_back to the other player""")
 
     @property
     def sender_payoff(self):
@@ -68,6 +69,10 @@ class Group(BaseGroup):
     @property
     def returner_payoff(self):
         return (self.ammount_given * 3) - self.ammount_sent_back
+
+    def set_ammount_sent_back(self):
+        self.ammount_sent_back = (
+            self.ammount_given * self.percentage_sent_back / 100.)
 
     def set_payoff(self):
         for player in self.get_players():

@@ -56,11 +56,7 @@ class AsignmentPage(WaitPage):
             p for p in participants
             if p.vars["trust_type"] == Constants.ttype_not_trustworthy]
 
-        group_candidates = (
-            self._get_group_candidates(trustworthy, not_trustworthy)
-            if self.subsession.treatment_trustworthy_first else
-            self._get_group_candidates(not_trustworthy, trustworthy))
-
+        group_candidates = self._get_group_candidates(trustworthy, not_trustworthy)
         groups = self._select_groups(group_candidates, Constants.num_rounds)
 
         for subsession in self.subsession.in_rounds(1, Constants.num_rounds):
@@ -103,28 +99,19 @@ class Offer(Page):
         return self.player.role() == Constants.sender
 
 
-class OfferWaitPage(WaitPage):
-    title_text = "Waiting for the sender"
-    body_text = "Waiting for the sender"
-
-
 class Return(Page):
 
     form_model = models.Group
-    form_fields = ["ammount_sent_back"]
+    form_fields = ["percentage_sent_back"]
 
     def is_displayed(self):
         return self.player.role() == Constants.returner
 
-    def vars_for_template(self):
-        return {"return_max": int(self.group.ammount_given * 3)}
-
 
 class ReturnWaitPage(WaitPage):
-    title_text = "Waiting for the returner"
-    body_text = "Waiting for the returner"
 
     def after_all_players_arrive(self):
+        self.group.set_ammount_sent_back()
         if self.subsession.round_number == Constants.num_rounds:
             self.group.set_payoff()
 
@@ -140,7 +127,6 @@ page_sequence = [
     AsignmentPage,
     Instructions,
     Expect,
-    Offer, OfferWaitPage,
-    Return, ReturnWaitPage,
+    Offer, Return, ReturnWaitPage,
     Results
 ]
