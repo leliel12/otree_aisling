@@ -66,7 +66,7 @@ USE_POINTS = False
 LANGUAGE_CODE = 'en'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = []
+INSTALLED_APPS = ["django.contrib.humanize"]
 
 # SENTRY_DSN = ''
 
@@ -128,6 +128,12 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
+        'name': 'pre_survey',
+        'display_name': "Pre Survey",
+        'num_demo_participants': 1,
+        'app_sequence': ['pre_survey'],
+    },
+    {
         'name': 'big_five',
         'display_name': "Big Five",
         'num_demo_participants': 1,
@@ -158,7 +164,8 @@ SESSION_CONFIGS = [
         'display_name': "Full Game (Reveal Type)",
         'num_demo_participants': 2,
         "treatment_reveal_type": True,
-        'app_sequence': ['big_five',
+        'app_sequence': ['pre_survey',
+                         'big_five',
                          'gssas_holtlaury',
                          'trust_type_check',
                          'trust'],
@@ -168,7 +175,8 @@ SESSION_CONFIGS = [
         'display_name': "Full Game (No reveal type)",
         'num_demo_participants': 2,
         "treatment_reveal_type": False,
-        'app_sequence': ['big_five',
+        'app_sequence': ['pre_survey',
+                         'big_five',
                          'gssas_holtlaury',
                          'trust_type_check',
                          'trust'],

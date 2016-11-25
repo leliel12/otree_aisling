@@ -1,0 +1,50 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags humanize %}
+
+{% block title %}
+    Survey - Screen 3/3
+{% endblock %}
+
+
+{% block styles %}
+<style>
+div.field-present label {
+    font-weight: normal;
+
+}
+
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="row lead">
+    <div class="col-md-12">
+        <p>
+            Please think about what you would do in the following situation.
+            You are in an area you are not familiar with, and you realize that you lost your way.
+            You ask a stranger for directions. The stranger offers to take you to your destination.
+        </p>
+        <p>
+            Helping you costs the stranger about <strong>40 U.S. dollars</strong> in total. However,
+            the stranger says he or she does not want any money from you. You have six presents with you.
+            The cheapest present costs <span class="text-info">10 U.S. dollars</span>,
+            the most expensive one costs <span class="text-info">60 U.S. dollars</span>.
+            Do you give one of the presents to the stranger as a “thank you” gift? (If yes, ask:)
+        </p>
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12 ">
+        {% formfield player.present %}
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,45 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags humanize %}
+
+{% block title %}
+    Survey - Screen 2/3
+{% endblock %}
+
+
+{% block styles %}
+<style>
+div.form-group {
+    display: inline;
+}
+
+div.form-group div.controls,
+div.form-group div.controls input {
+    width: 20%;
+    display: inline;
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="row lead">
+    <div class="col-md-12">
+        Imagine the following situation: Today you unexpectedly received {{Constants.donate_max|intcomma}} U.S. dollars. How this amount would you
+        donate to a good cause? (Values between 0 and {{Constants.donate_max|intcomma}} are allowed)
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12  text-center">
+        {% formfield player.donate with label="Ammount to donate"%} U.S. dollars
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+{% endblock %}
+
+
