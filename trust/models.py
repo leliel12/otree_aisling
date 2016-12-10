@@ -10,6 +10,7 @@ from otree.api import (
 )
 
 from trust_type_check.models import Constants as TTCConstants
+from pre_survey.models import Constants as PSConstants
 
 author = 'Your name here'
 
@@ -18,7 +19,7 @@ Your app description
 """
 
 
-class Constants(TTCConstants):
+class Constants(TTCConstants, PSConstants):
     name_in_url = 'trust'
     players_per_group = 2
     num_rounds = 2
@@ -27,6 +28,8 @@ class Constants(TTCConstants):
 
     sender = "Sender"
     returner = "Returner"
+
+    trust_scores = ("ttype", "pss")
 
 
 class Subsession(BaseSubsession):
@@ -41,11 +44,19 @@ class Subsession(BaseSubsession):
                 player.selected_round_for_payoff = random.randint(1, Constants.num_rounds)
             else:
                 player.selected_round_for_payoff = player.in_round(1).selected_round_for_payoff
+        if self.round_number == 1:
+            trust_score = self.session.config["trust_score"]
+            if trust_score not in Constants.trust_scores:
+                raise ValueError("session 'trust_score' must be one of {}".format(Constants.trust_scores))
+            if trust_score == "ttype" and self.session.config.get("auto_ttype"):
+                ttypes = itertools.cycle(Constants.ttypes)
+                for player in self.get_players():
+                    player.participant.vars["trust_type"] = next(ttypes)
+            if trust_score == "pss" and  self.session.config.get("auto_pss"):
+                psscores = itertools.cycle(Constants.psscores)
+                for player in self.get_players():
+                    player.participant.vars["ps_score"] = next(psscores)
 
-        if self.round_number == 1 and self.session.config.get("auto_ttype"):
-            ttypes = itertools.cycle(Constants.ttypes)
-            for player in self.get_players():
-                player.participant.vars["trust_type"] = next(ttypes)
 
 
 class Group(BaseGroup):
@@ -106,3 +117,7 @@ class Player(BasePlayer):
     @property
     def trust_type(self):
         return self.participant.vars["trust_type"]
+
+    @property
+    def ps_score(self):
+        return self.participant.vars["ps_score"]

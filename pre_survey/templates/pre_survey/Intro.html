@@ -1,0 +1,71 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+    Welcome to the Experiment
+{% endblock %}
+
+
+{% block styles %}
+<style>
+    li.field-container select {
+        display: inline;
+        margin: 2px;
+        width: 135px;
+    }
+    li.field-container label {
+        font-weight: normal;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div>
+<div class="row lead">
+    <div class="col-md-12 center text-center">
+        <p>The first portion of the experiment will be a series of questions then
+           you will play a game where one round will be randomly selected to be added to your $5
+           show-­‐up fee to be your real payment for your participation.</p>
+        <p>Please read the following questions and answer to the best of your knowledge.
+            If you feel confused or if the question needs more explanations, please raise your
+            hand and someone will answer your questions.</p>
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12 center text-center">
+        <label>{{form.computer.label}}</label>
+        <p><small>Please answer correctly otherwise you may not get your full payment</small></p>
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-4 col-md-offset-4 center text-center">
+        {% formfield player.computer with label=""%}
+        <hr/>
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12 center text-center">
+        <label>{{form.gender.label}}</label>
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-4 col-md-offset-4 center text-center">
+        {% formfield player.gender with label=""%}
+    </div>
+</div>
+
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <span class="pull-right">{% next_button %}</span>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+
+
+
+

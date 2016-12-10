@@ -4,6 +4,12 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
+class Intro(Page):
+
+    form_model = models.Player
+    form_fields = ["computer", "gender"]
+
+
 class Screen1(Page):
 
     form_model = models.Player
@@ -25,10 +31,22 @@ class Screen3(Page):
     form_fields = ["present"]
 
 
+class SurveyDebrief(Page):
+    pass
+
+
+class CalculateTrustScore(WaitPage):
+    wait_for_all_groups = True
+    def after_all_players_arrive(self):
+        self.subsession.set_ttype()
 
 
 page_sequence = [
+    #~ Intro,
     Screen1,
     Screen2,
-    Screen3
+    Screen3,
+    #~ SurveyDebrief,
+    CalculateTrustScore
+
 ]
