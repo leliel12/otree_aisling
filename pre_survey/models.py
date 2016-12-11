@@ -37,10 +37,13 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
 
+    pss_score_median = models.FloatField()
+
     def _get_stats(self, responses):
         means, stds = [], []
         for qanswers in zip(*responses.values()):
             means.append(stats.mean(qanswers))
+            stds.append(stats.stdev(qanswers))
         return tuple(means), tuple(stds)
 
     def _normalize(self, responses, means, stds):
@@ -49,6 +52,12 @@ class Subsession(BaseSubsession):
             norms[player] = [
                 (a-mean)/sigma for a, mean, sigma in zip(answers, means, stds)]
         return norms
+
+    def _score(self, normalized):
+        scores = {}
+        for player, values in normalized.items():
+            scores[player] = sum(values)
+        return scores
 
     def set_ttype(self):
         responses = {}
@@ -59,10 +68,20 @@ class Subsession(BaseSubsession):
                 player.give_to_without_expecting_anything_in_return,
                 player.donate, player.present,
             ]
+
+        import ipdb; ipdb.set_trace()
         means, stds = self._get_stats(responses)
-        nomalized = self._normalize(responses, means, stds)
+        normalized = self._normalize(responses, means, stds)
+        scores = self._score(normalized)
 
+        self.pss_score_median = stats.median(scores.values())
 
+        for player, score in scores.items():
+            player.ps_score_value = score
+            if score >= self.pss_score_median:
+                player.ps_score = Constants.pss_above
+            else:
+                player.ps_score = Constants.pss_below
 
 
 class Group(BaseGroup):
@@ -71,6 +90,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
+    ps_score_value = models.FloatField()
     ps_score = models.CharField(max_length=max(map(len, Constants.psscores)))
 
     computer = models.CharField(

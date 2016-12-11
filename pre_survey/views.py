@@ -42,11 +42,11 @@ class CalculateTrustScore(WaitPage):
 
 
 page_sequence = [
-    #~ Intro,
+    Intro,
     Screen1,
     Screen2,
     Screen3,
-    #~ SurveyDebrief,
+    SurveyDebrief,
     CalculateTrustScore
 
 ]
