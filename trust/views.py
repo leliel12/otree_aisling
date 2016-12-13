@@ -49,16 +49,17 @@ class AsignmentPage(WaitPage):
 
     def after_all_players_arrive(self):
         participants = [p.participant for p in self.subsession.get_players()]
-        trustworthy = [
-            p for p in participants
-            if p.vars["trust_type"] == Constants.ttype_trustworthy]
-        not_trustworthy = [
-            p for p in participants
-            if p.vars["trust_type"] == Constants.ttype_not_trustworthy]
 
-        group_candidates = self._get_group_candidates(trustworthy, not_trustworthy)
+        trust_score = self.session.config["trust_score"]
+        scores, var_name = Constants.trust_scores[trust_score]
+
+        grouped = {
+            k: list(v)
+            for k, v in it.groupby(participants, lambda p:  p.vars[var_name])}
+
+        group_a, group_b = grouped.values()
+        group_candidates = self._get_group_candidates(group_a, group_b)
         groups = self._select_groups(group_candidates, Constants.num_rounds)
-
         for subsession in self.subsession.in_rounds(1, Constants.num_rounds):
             group = groups[subsession.round_number - 1]
             players = self._participants_to_players(group, subsession)

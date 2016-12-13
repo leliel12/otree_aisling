@@ -19,7 +19,7 @@ Your app description
 """
 
 
-class Constants(TTCConstants, PSConstants):
+class Constants(BaseConstants):
     name_in_url = 'trust'
     players_per_group = 2
     num_rounds = 2
@@ -29,7 +29,8 @@ class Constants(TTCConstants, PSConstants):
     sender = "Sender"
     returner = "Returner"
 
-    trust_scores = ("ttype", "pss")
+    trust_scores = {"ttype": (TTCConstants.ttypes, "trust_type"),
+                    "pss": (PSConstants.psscores, "ps_score")}
 
 
 class Subsession(BaseSubsession):
@@ -48,14 +49,11 @@ class Subsession(BaseSubsession):
             trust_score = self.session.config["trust_score"]
             if trust_score not in Constants.trust_scores:
                 raise ValueError("session 'trust_score' must be one of {}".format(Constants.trust_scores))
-            if trust_score == "ttype" and self.session.config.get("auto_ttype"):
-                ttypes = itertools.cycle(Constants.ttypes)
+            if self.session.config.get("auto_trust_score"):
+                scores, var_name = Constants.trust_scores[trust_score]
+                scores = itertools.cycle(scores)
                 for player in self.get_players():
-                    player.participant.vars["trust_type"] = next(ttypes)
-            if trust_score == "pss" and  self.session.config.get("auto_pss"):
-                psscores = itertools.cycle(Constants.psscores)
-                for player in self.get_players():
-                    player.participant.vars["ps_score"] = next(psscores)
+                    player.participant.vars[var_name] = next(scores)
 
 
 
