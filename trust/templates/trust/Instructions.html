@@ -3,67 +3,14 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Instructions
+    Game
 {% endblock %}
 
 {% block content %}
 <div class="row lead">
-    <p>
-        As in the Triple Dictator Game, you are randomly assigned the role of player A or player B.
-        You will play the role of Player A or B for 10 rounds and then switch to being the other Player
-        for another 10 rounds. One random round will be chosen for payments.
-        It is important to note that this stage of the study determines a big part of your payment and that
-        all money amounts involved in this stage are real.
-    </p>
-    <p>
-        Player A is given {{10|c}} which they decide how to allocate between themselves and
-        Player B. Player B starts off with {{0|c}} and receives triple the amount Player A decides to share with player B.
-        <strong> Note that in this game, Player B can choose to return part or all of the money received from Player A.</strong>
-        The following are some example scenarios.
-    </p>
-    <p>
-        <strong>Ex1.</strong> Player A has {{10|c}} and player B has {{0|c}}. Player A decides to give player B {{5|c}}. Player B receives
-        3 * {{5|c}} = {{15|c}}. Player B can then chooses to return {{5|c}} of the {{15|c}}.
-        At the end of the round, player A gets {{10|c}} as payoff and Player B also gets {{10|c}} as payoff.
-    </p>
-    <p>
-        <strong>Ex.2</strong> Player A has {{10|c}} and player B has {{0|c}}. Player A doesn't want to give player B
-        any of the {{10|c}}. Round ends and Player A keeps {{10|c}} as payoff while Player B receives {{0|c}} as payoff.
-    </p>
-    <p>
-        <strong>Ex3.</strong> Player A has {{10|c}} and player B has {{0|c}}. Player A gives all of the {{10|c}} to
-        Player B. Player B receives 3 * {{10|c}} = {{30|c}}. Player B then decides to return none of the {{30|c}} to
-        Player A. Round ends, Player A has {{0|c}} as payoff while Player B gets {{30|c}} as payoff.
-    </p>
-    <p>
-        <strong>Ex.4</strong> Player A has {{10|c}} and player B has {{0|c}}. Player A gives all of the {{10|c}} to
-        Player B. Player B receives 3 * {{10|c}} = {{30|c}}. Player B then decides to return half of the {{30|c}} to Player A.
-        Round ends, Player A has {{15|c}} as payoff and Player B also gets {{15|c}} as payoff.
-    </p>
-    <p>
-        Remember the money involved in this game is real and constitute is a big portion of your payment. You will be asked to
-        answer the following question. As player A, what percentage of the money given to player B do you expect they will return?
-    </p>
-    <p>
-        <strong>Ex.1</strong> If you give Player B {{10|c}} they receive {{30|c}} if they give you back {{30|c}} then that is
-        300% of what you sent them.
-    </p>
-    <p>
-        <strong>Ex.2</strong> If you give Player B {{5|c}} they receive 3 * 5 = {{15|c}} and they give you back
-        {{5|c}} then that is 100% return of what you sent them
-    </p>
-    <p>
-        <strong>Ex.3</strong> If you give Player B {{7|c}} they receive 3* {{7|c}} = {{21|c}} and they give you none
-        of it back then that is a 0% return of what you sent them.
-    </p>
-    <p>
-        <strong>Ex.4</strong> If you give Player B {{3|c}} they receive 3 * {{3|c}} = {{9|c}} and they give you  {{2|c}} of it
-        back then that is roughly 66% of what you sent them.
-    </p>
-    <p>
-        Lastly, remember that the money involved is real and heavily impacts the payment for participants at the end.
-        The allocation of the money involved is completely up to you.
-    </p>
+    <p>Now you will play some rounds of the game. You will be randomly assigned to Player A or Player B. You will play both sequentially and simultaneously.</p>
+    <p><strong>Sequential Play:</strong> When you play sequentially Player A will decide then Player B sees Player A’s decision and makes their decision on how much to return. Then both participants learn of their payoffs.</p>
+    <p><strong>Simultaneous Play:</strong> When you play simultaneously Player A will decide. While Player A is deciding Player B will simultaneously decide what percentage to return to Player A. Then both participants learn of their payoffs.</p>
 </div>
 
 <hr>

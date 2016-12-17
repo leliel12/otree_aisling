@@ -92,16 +92,21 @@ class AsignmentPage(WaitPage):
         return [[p2p[p] for p in  g] for g in  participants]
 
     def after_all_players_arrive(self):
-        participants = [p.participant for p in self.subsession.get_players()]
-
         trust_score = self.session.config["trust_score"]
         scores, var_name = Constants.trust_scores[trust_score]
 
-        grouped = {
-            k: list(v)
-            for k, v in it.groupby(participants, lambda p:  p.vars[var_name])}
+        group_a, group_b = [], []
+        for p in self.subsession.get_players():
+            participant = p.participant
+            if participant.vars[var_name] == scores[0]:
+                group_a.append(participant)
+            elif participant.vars[var_name] == scores[1]:
+                group_b.append(participant)
+            else:
+                raise ValueError()
+        if self.subsession.order_variation == "first_below":
+            group_a, group_b = group_b, group_a
 
-        group_a, group_b = grouped.values()
         group_candidates = self._get_group_candidates(group_a, group_b)
         groups = self._select_groups(group_candidates, Constants.num_rounds)
         for subsession in self.subsession.in_rounds(1, Constants.num_rounds):
@@ -111,7 +116,6 @@ class AsignmentPage(WaitPage):
 
 
 class Instructions(Page):
-
     def is_displayed(self):
         return self.subsession.round_number == 1
 
@@ -173,7 +177,6 @@ page_sequence = [
     TestOfUderStanding, AnswersTestOfUderStanding,
     ExpectationsAndPercentages,
     TestOfUderStandingPercentages, AnswersTestOfUderStandingPercentages,
-
     AsignmentPage,
     Instructions,
     #~ Expect,

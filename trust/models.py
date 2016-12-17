@@ -66,7 +66,7 @@ class Constants(BaseConstants):
 
     reveal_variation = ("reveal", "no-reveal")
     order_variation = ("first_above", "first_below")
-    play_variation = ("simultaneous", "sequential")
+    play_variation = ("simultaneous_first", "sequential_first")
 
 
 
