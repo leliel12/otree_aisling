@@ -35,15 +35,15 @@ class Constants(BaseConstants):
     test_of_unsderstanding = [
         (
             "You are Player A and you just sent over $10 of the $10 you have to player B, how much will player B receive?",
-            "Answer: 3*10=$30",
+            "3*10=$30",
             "Remember that Player B gets triple the amount you send so in this case you multiply the 10 dollars you send by 3 and get $30."),
         (
             "You are Player B and Player A just decided to give you $5. How much will you actually receive?",
-            "Answer: 3*5 = $15",
+            "3*5 = $15",
             "Remember that Player B always receives triple the amount that Player A decides to send over. So in this case, you will receive 3*5 which is 15 dollars in total."),
         (
             "Player A gives Player B $6 and Player B returns $6. How much are their payoffs?",
-            "Player A= $10 Player B: $12"
+            "Player A=$10\nPlayer B=$12",
             "Remember Player A gets to keep anything not sent to Player B")]
 
 
@@ -115,8 +115,9 @@ class Player(BasePlayer):
         verbose_name = Constants.test_of_unsderstanding[0][0])
     tunderstanding_2 = models.IntegerField(
         verbose_name = Constants.test_of_unsderstanding[1][0])
-    tunderstanding_3 = models.IntegerField(
+    tunderstanding_3a = models.IntegerField(
         verbose_name = Constants.test_of_unsderstanding[2][0])
+    tunderstanding_3b = models.IntegerField()
 
     expect_other_player_to_return = models.IntegerField(
         doc="""What do you expect that the other player will return?""",

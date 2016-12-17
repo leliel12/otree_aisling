@@ -3,10 +3,24 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Test
-  of
-  Understanding
+    Test of Understanding
 {% endblock %}
+
+{% block styles %}
+<style>
+div.input-inline input {
+    display: inline;
+
+}
+
+li {
+    margin-bottom: 30px;
+
+}
+
+</style>
+
+{% endblock styles %}
 
 {% block content %}
 <div class="row lead">
@@ -17,13 +31,22 @@
     <p class="text-info">Kindly answer the following quiz questions.</p>
 
     <ul style="list-style-type: none">
-        {% for field in form %}
-            <li><label>Q{{forloop.counter}}:</label>{{field.label}}{{field}}</li>
-        {% endfor %}
+        <li>
+            <label>Q1: </label> {{form.tunderstanding_1.label}}
+            {{form.tunderstanding_1}}
+        </li>
+        <li>
+            <label>Q2: </label> {{form.tunderstanding_2.label}}
+            {{form.tunderstanding_2}}
+        </li>
+        <li>
+            <label>Q3: </label> {{form.tunderstanding_3a.label}}
+            <div class="input-inline">
+                <div>Player A {{form.tunderstanding_3a}}</div>
+                <div>Player B {{form.tunderstanding_3b}}</div>
+            </div>
+        </li>
     </ul>
-
-
-
 </div>
 
 <hr>

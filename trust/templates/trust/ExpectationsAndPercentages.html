@@ -1,0 +1,50 @@
+
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Expectations and Percentages
+{% endblock %}
+
+
+{% block content %}
+<div class="row lead">
+    <p>
+        During the experiment you will also have to deal with percentage returned.
+    </p>
+    <p>
+         For example, you will be asked to answer the following question. As Player A,
+         what percentage of the money given to player B do you expect they will return?
+    </p>
+    <p>
+        <strong>Example 1</strong> If you give Player B $10.00 they receive $30.00 if
+        they give you back $30.00 then that is 300% of what you sent them.
+    </p>
+    <p>
+        <strong>Example 2</strong> If you give Player B $5.00 they
+        receive 3 * 5 = $15.00 and they give you back $5.00 then that is 100%
+        return of what you sent them
+    </p>
+    <p>
+        For instance, you will be asked the following question.
+        You are Player B and answering simultaneously with Player A.
+        What percentage of money would you like to return?
+    </p>
+    <p>
+        Example 1 If you (Player B) decide you want to give 150% return to Player A. Say Player A gives you $5 then you will return $7.50 to them. Say Player A gives you $10 then you will return $15.
+    </p>
+</div>
+
+<hr>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+
+{% include "trust/includes/auto_trust_score.html" %}
+
+{% endblock %}
+
+
+
