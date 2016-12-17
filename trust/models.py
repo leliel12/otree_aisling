@@ -9,6 +9,9 @@ from otree.api import (
     Currency as c, currency_range, safe_json
 )
 
+from django.core.exceptions import ImproperlyConfigured
+
+
 from trust_type_check.models import Constants as TTCConstants
 from pre_survey.models import Constants as PSConstants
 
@@ -61,14 +64,32 @@ class Constants(BaseConstants):
             "($10 * 2.00)= $20",
             "Player B agreed to send 200% and 200% of $10 is $20.")]
 
+    reveal_variation = ("reveal", "no-reveal")
+    order_variation = ("first_above", "first_below")
+    play_variation = ("simultaneous", "sequential")
+
 
 
 class Subsession(BaseSubsession):
 
-    treatment_reveal_type = models.BooleanField()
+    reveal_variation = models.CharField(max_length=100, choices=Constants.reveal_variation)
+    order_variation = models.CharField(max_length=100, choices=Constants.order_variation)
+    play_variation = models.CharField(max_length=100, choices=Constants.play_variation)
+
+    def _check(self, part, value, options, conf):
+        if value not in options:
+            options = ", ".join(options)
+            msg = "{} variation part of treatment '{}' must be one of: {}. Full conf {}".format(part, value, options, conf)
+            raise ImproperlyConfigured(msg)
 
     def before_session_starts(self):
-        self.treatment_reveal_type = self.session.config['treatment_reveal_type']
+        treatment = self.session.config['treatment_type']
+
+        self.reveal_variation, self.play_variation, self.order_variation  = treatment
+        self._check("reveal", self.reveal_variation, Constants.reveal_variation, str(treatment))
+        self._check("order", self.order_variation, Constants.order_variation, str(treatment))
+        self._check("play", self.play_variation, Constants.play_variation, str(treatment))
+
 
         for player in self.get_players():
             if self.round_number == 1:

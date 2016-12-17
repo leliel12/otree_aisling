@@ -110,7 +110,6 @@ class AsignmentPage(WaitPage):
             subsession.set_group_matrix(players)
 
 
-
 class Instructions(Page):
 
     def is_displayed(self):

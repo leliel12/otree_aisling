@@ -127,12 +127,6 @@ SESSION_CONFIG_DEFAULTS = {
 }
 
 SESSION_CONFIGS = [
-    {
-        'name': 'pre_survey',
-        'display_name': "Pre Survey",
-        'num_demo_participants': 2,
-        'app_sequence': ['pre_survey'],
-    },
     #~ {
         #~ 'name': 'big_five',
         #~ 'display_name': "Big Five",
@@ -152,30 +146,21 @@ SESSION_CONFIGS = [
         #~ 'app_sequence': ['trust_type_check'],
     #~ },
     {
+        'name': 'pre_survey',
+        'display_name': "Pre Survey",
+        'num_demo_participants': 2,
+        'app_sequence': ['pre_survey'],
+    },
+    {
         'name': 'trust',
         'display_name': "Trust (Reveal Type)",
         'num_demo_participants': 2,
         'trust_score': "pss",
         'auto_trust_score': True,
-        "treatment_reveal_type": True,
+        "treatment_type": ("reveal", "simultaneous", "first_above"),
         'app_sequence': ['trust'],
     },
-    #~ {
-        #~ 'name': 'full_game_reveal',
-        #~ 'display_name': "Full Game (Reveal Type)",
-        #~ 'num_demo_participants': 2,
-        #~ "treatment_reveal_type": True,
-        #~ 'app_sequence': ['pre_survey',
-                         #~ 'trust'],
-    #~ },
-    #~ {
-        #~ 'name': 'full_game_no_reveal',
-        #~ 'display_name': "Full Game (No reveal type)",
-        #~ 'num_demo_participants': 2,
-        #~ "treatment_reveal_type": False,
-        #~ 'app_sequence': ['pre_survey',
-                         #~ 'trust'],
-    #~ },
+
 ]
 
 # anything you put after the below line will override
