@@ -31,7 +31,7 @@ class TestOfUderStanding(Page):
 
     form_model = models.Player
     form_fields = ["tunderstanding_1", "tunderstanding_2",
-                   "tunderstanding_3a", "tunderstanding_3b", ]
+                   "tunderstanding_3a", "tunderstanding_3b"]
 
 
 class AnswersTestOfUderStanding(Page):
@@ -47,6 +47,10 @@ class ExpectationsAndPercentages(Page):
 class TestOfUderStandingPercentages(Page):
     def is_displayed(self):
         return self.subsession.round_number == 1
+
+    form_model = models.Player
+    form_fields = ["tunderstanding_percentage_1", "tunderstanding_percentage_2",
+                   "tunderstanding_percentage_3"]
 
 
 class AnswersTestOfUderStandingPercentages(Page):
@@ -166,13 +170,13 @@ class Results(Page):
 
 
 page_sequence = [
-    #~ GamePortionOfExperiment,
-    #~ TestOfUderStanding, AnswersTestOfUderStanding,
+    GamePortionOfExperiment,
+    TestOfUderStanding, AnswersTestOfUderStanding,
     ExpectationsAndPercentages,
     TestOfUderStandingPercentages, AnswersTestOfUderStandingPercentages,
 
     AsignmentPage,
-    #~ Instructions,
+    Instructions,
     #~ Expect,
     #~ Offer, Return, ReturnWaitPage,
     #~ Results

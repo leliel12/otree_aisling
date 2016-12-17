@@ -32,7 +32,7 @@ class Constants(BaseConstants):
     trust_scores = {"ttype": (TTCConstants.ttypes, "trust_type"),
                     "pss": (PSConstants.psscores, "ps_score")}
 
-    test_of_unsderstanding = [
+    test_of_understanding = [
         (
             "You are Player A and you just sent over $10 of the $10 you have to player B, how much will player B receive?",
             "3*10=$30",
@@ -45,6 +45,21 @@ class Constants(BaseConstants):
             "Player A gives Player B $6 and Player B returns $6. How much are their payoffs?",
             "Player A=$10\nPlayer B=$12",
             "Remember Player A gets to keep anything not sent to Player B")]
+
+    test_of_understanding_percentage = [
+        (
+            "As Player A, you give $10 to Player B. You expect that player B will return $5 to you. What is the expected percentage of return?",
+            "(5/10) *100 = 50%",
+            "You sent over $10 and you expected $5-- half of the amount to be returned-that is a 50% rate of return."),
+        (
+            "After receiving the $10 which turns in $30, Player B decides that they will send back $10. What is the percentage of return from Player B?",
+            "(10/10)*100 = 100%",
+            "You sent over $10 and received $10 in return. This is a 100% return."),
+
+        (
+            "Suppose Player B decides they will send back 200% of whatever Player A sends to them. Then Player A sends $10 which turns into $30. How much money in dollars does Player B return?",
+            "($10 * 2.00)= $20",
+            "Player B agreed to send 200% and 200% of $10 is $20.")]
 
 
 
@@ -112,12 +127,21 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 
     tunderstanding_1 = models.IntegerField(
-        verbose_name = Constants.test_of_unsderstanding[0][0])
+        verbose_name=Constants.test_of_understanding[0][0])
     tunderstanding_2 = models.IntegerField(
-        verbose_name = Constants.test_of_unsderstanding[1][0])
+        verbose_name=Constants.test_of_understanding[1][0])
     tunderstanding_3a = models.IntegerField(
-        verbose_name = Constants.test_of_unsderstanding[2][0])
+        verbose_name=Constants.test_of_understanding[2][0])
     tunderstanding_3b = models.IntegerField()
+
+    tunderstanding_percentage_1 = models.IntegerField(
+        min=0, max=100,
+        verbose_name=Constants.test_of_understanding_percentage[0][0])
+    tunderstanding_percentage_2 = models.IntegerField(
+        min=0, max=100,
+        verbose_name=Constants.test_of_understanding_percentage[1][0])
+    tunderstanding_percentage_3 = models.IntegerField(
+        verbose_name=Constants.test_of_understanding_percentage[2][0])
 
     expect_other_player_to_return = models.IntegerField(
         doc="""What do you expect that the other player will return?""",

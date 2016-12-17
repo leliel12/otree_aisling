@@ -3,7 +3,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Answers to Test of Understanding
+    Test of Understanding Percentages
 {% endblock %}
 
 {% block styles %}
@@ -18,22 +18,27 @@ li {
 
 }
 
-
 </style>
 
 {% endblock styles %}
 
 {% block content %}
 <div class="row lead">
-    <ul style="list-style-type: none">
-        {% for question, answer, explanation in Constants.test_of_understanding %}
-        <li>
-            <label>Q{{forloop.counter}}: </label> {{question}}
-            <p class="text-danger"><strong>Anwer:</strong> {{answer}}</p>
-            <p class="text-info"><strong>Explanation:</strong> {{explanation}}</p>
-        </li>
-        {% endfor %}
+    <p class="text-info">Let’s test your understanding. Kindly answer the following quiz questions.</p>
 
+    <ul style="list-style-type: none">
+        <li>
+            <label>Q1: </label> {{form.tunderstanding_percentage_1.label}}
+            {{form.tunderstanding_percentage_1}}
+        </li>
+        <li>
+            <label>Q2: </label> {{form.tunderstanding_percentage_2.label}}
+            {{form.tunderstanding_percentage_2}}
+        </li>
+        <li>
+            <label>Q3: </label> {{form.tunderstanding_percentage_3.label}}
+            {{form.tunderstanding_percentage_3}}
+        </li>
     </ul>
 </div>
 

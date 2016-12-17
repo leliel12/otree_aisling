@@ -3,7 +3,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Answers to Test of Understanding
+    Answers to Test of Understanding Percentages
 {% endblock %}
 
 {% block styles %}
@@ -26,7 +26,7 @@ li {
 {% block content %}
 <div class="row lead">
     <ul style="list-style-type: none">
-        {% for question, answer, explanation in Constants.test_of_understanding %}
+        {% for question, answer, explanation in Constants.test_of_understanding_percentage %}
         <li>
             <label>Q{{forloop.counter}}: </label> {{question}}
             <p class="text-danger"><strong>Anwer:</strong> {{answer}}</p>
