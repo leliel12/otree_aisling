@@ -32,6 +32,21 @@ class Constants(BaseConstants):
     trust_scores = {"ttype": (TTCConstants.ttypes, "trust_type"),
                     "pss": (PSConstants.psscores, "ps_score")}
 
+    test_of_unsderstanding = [
+        (
+            "You are Player A and you just sent over $10 of the $10 you have to player B, how much will player B receive?",
+            "Answer: 3*10=$30",
+            "Remember that Player B gets triple the amount you send so in this case you multiply the 10 dollars you send by 3 and get $30."),
+        (
+            "You are Player B and Player A just decided to give you $5. How much will you actually receive?",
+            "Answer: 3*5 = $15",
+            "Remember that Player B always receives triple the amount that Player A decides to send over. So in this case, you will receive 3*5 which is 15 dollars in total."),
+        (
+            "Player A gives Player B $6 and Player B returns $6. How much are their payoffs?",
+            "Player A= $10 Player B: $12"
+            "Remember Player A gets to keep anything not sent to Player B")]
+
+
 
 class Subsession(BaseSubsession):
 
@@ -96,6 +111,13 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
+    tunderstanding_1 = models.IntegerField(
+        verbose_name = Constants.test_of_unsderstanding[0][0])
+    tunderstanding_2 = models.IntegerField(
+        verbose_name = Constants.test_of_unsderstanding[1][0])
+    tunderstanding_3 = models.IntegerField(
+        verbose_name = Constants.test_of_unsderstanding[2][0])
+
     expect_other_player_to_return = models.IntegerField(
         doc="""What do you expect that the other player will return?""",
         min=0, max=300, widget=widgets.SliderInput(),
@@ -107,6 +129,8 @@ class Player(BasePlayer):
         verbose_name='What percentage do you think the other will return? (from 0 to 300%)')
 
     selected_round_for_payoff = models.PositiveIntegerField()
+
+
 
 
     def role(self):

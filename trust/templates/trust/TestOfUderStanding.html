@@ -1,0 +1,41 @@
+
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Test
+  of
+  Understanding
+{% endblock %}
+
+{% block content %}
+<div class="row lead">
+    <p>Before we play, let us quiz you on your understanding.</p>
+    <p>Remember: Player A is given $10 which they decide how to allocate between
+        themselves and Player B. Player B starts off with $0 and receives triple (3X) the
+        amount Player A decides to share with player B. </p>
+    <p class="text-info">Kindly answer the following quiz questions.</p>
+
+    <ul style="list-style-type: none">
+        {% for field in form %}
+            <li><label>Q{{forloop.counter}}:</label>{{field.label}}{{field}}</li>
+        {% endfor %}
+    </ul>
+
+
+
+</div>
+
+<hr>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+
+{% include "trust/includes/auto_trust_score.html" %}
+
+{% endblock %}
+
+
+

@@ -12,7 +12,40 @@ from .models import Constants
 
 def vars_for_all_templates(self):
     return {
-        "auto_type": self.session.config.get("auto_ttype")}
+        "auto_trust_score": self.session.config.get("auto_trust_score"),
+        "trust_score": self.session.config["trust_score"]}
+
+
+# =============================================================================
+# PAGES
+# =============================================================================
+
+class GamePortionOfExperiment(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == 1
+
+
+class TestOfUderStanding(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == 1
+
+    form_model = models.Player
+    form_fields = ["tunderstanding_1", "tunderstanding_2", "tunderstanding_3"]
+
+
+class AnswersTestOfUderStanding(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == 1
+
+class TestOfUderStandingPercentages(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == 1
+
+
+class AnswersTestOfUderStandingPercentages(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == 1
+
 
 
 class AsignmentPage(WaitPage):
@@ -64,6 +97,7 @@ class AsignmentPage(WaitPage):
             group = groups[subsession.round_number - 1]
             players = self._participants_to_players(group, subsession)
             subsession.set_group_matrix(players)
+
 
 
 class Instructions(Page):
@@ -125,9 +159,13 @@ class Results(Page):
 
 
 page_sequence = [
+    GamePortionOfExperiment,
+    TestOfUderStanding, AnswersTestOfUderStanding,
+    TestOfUderStandingPercentages, AnswersTestOfUderStandingPercentages,
+
     AsignmentPage,
-    Instructions,
-    Expect,
-    Offer, Return, ReturnWaitPage,
-    Results
+    #~ Instructions,
+    #~ Expect,
+    #~ Offer, Return, ReturnWaitPage,
+    #~ Results
 ]
