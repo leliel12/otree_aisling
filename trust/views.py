@@ -153,27 +153,28 @@ class Offer(Page):
         return self.player.role() == Constants.sender
 
 
-class Return(Page):
+class ReturnSimultaneous(Page):
 
     form_model = models.Group
     form_fields = ["percentage_sent_back"]
 
     def is_displayed(self):
+        import ipdb; ipdb.set_trace()
         return self.player.role() == Constants.returner
 
 
-class ReturnWaitPage(WaitPage):
+#~ class ReturnWaitPage(WaitPage):
 
-    def after_all_players_arrive(self):
-        self.group.set_ammount_sent_back()
-        if self.subsession.round_number == Constants.num_rounds:
-            self.group.set_payoff()
+    #~ def after_all_players_arrive(self):
+        #~ self.group.set_ammount_sent_back()
+        #~ if self.subsession.round_number == Constants.num_rounds:
+            #~ self.group.set_payoff()
 
 
-class Results(Page):
+#~ class Results(Page):
 
-    def vars_for_template(self):
-        return {"return_max": int(self.group.ammount_given * 3)}
+    #~ def vars_for_template(self):
+        #~ return {"return_max": int(self.group.ammount_given * 3)}
 
 
 
@@ -184,7 +185,8 @@ page_sequence = [
     #~ TestOfUderStandingPercentages, AnswersTestOfUderStandingPercentages,
     AsignmentPage,
     #~ Instructions,
-    Expect,
-    #~ Offer, Return, ReturnWaitPage,
+    #~ Expect,
+    Offer, #Return, ReturnWaitPage,
+    ReturnSimultaneous,
     #~ Results
 ]
