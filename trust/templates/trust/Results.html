@@ -6,19 +6,21 @@
 {% endblock %}
 
 {% block content %}
+{% include "trust/includes/round_play_type.html" %}
+
 <div class="row lead">
     <div class="col-md-12">
         <ul>
             <li>
-                The player <strong>A</strong>
+                Player <strong>A</strong>
                 give to player <strong>B</strong> <strong class="text-info">{{group.ammount_given}}</strong>
             </li>
             <li>
-                The player <strong>B</strong> receives <strong class="text-warning">{{return_max|c}}</strong>
+                Player <strong>B</strong> receives <strong class="text-warning">{{return_max|c}}</strong>
                 (<code>{{group.ammount_given}} * 3</code>)
             </li>
             <li>
-                Finally the player <strong>B</strong> return <strong class="text-success">{{group.ammount_sent_back}}</strong>
+                Finally the Player <strong>B</strong> return <strong class="text-success">{{group.ammount_sent_back}}</strong>
             </li>
             <li>
                 <strong>
@@ -34,6 +36,9 @@
         {% next_button %}
     </div>
 </div>
+
+{% include "trust/includes/auto_trust_score.html" %}
+
 {% endblock %}
 
 

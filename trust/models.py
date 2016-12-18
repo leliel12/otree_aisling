@@ -82,7 +82,7 @@ class Subsession(BaseSubsession):
     def _check(self, part, value, options, conf):
         if value not in options:
             options = ", ".join(options)
-            msg = "{} variation part of treatment '{}' must be one of: {}. Full conf {}".format(part, value, options, conf)
+            msg = "In treatment {}, {} variation part of treatment '{}' must be one of: {}.".format(conf, part, value, options)
             raise ImproperlyConfigured(msg)
 
     def before_session_starts(self):
@@ -92,7 +92,6 @@ class Subsession(BaseSubsession):
         self._check("reveal", self.reveal_variation, Constants.reveal_variation, str(treatment))
         self._check("order", self.order_variation, Constants.order_variation, str(treatment))
         self._check("play", self.play_variation, Constants.play_variation, str(treatment))
-
 
         for player in self.get_players():
             if self.round_number == 1:

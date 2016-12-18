@@ -20,15 +20,7 @@
     </div>
 </div>
 
-{% if auto_type %}
-<div class="row alert alert-warning text-center">
-    <div class="col-md-12">
-    <h4>Warning: <code>auto_type</code> enabled</h4>
-    This is a demo session and the
-    <strong class="text-info">trust_type</strong>
-    of the players was automatically asigned.
-</div></div>
-{% endif %}
+{% include "trust/includes/auto_trust_score.html" %}
 
 {% endblock %}
 

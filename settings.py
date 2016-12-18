@@ -153,11 +153,11 @@ SESSION_CONFIGS = [
     },
     {
         'name': 'trust',
-        'display_name': "Trust (Reveal Type)",
+        'display_name': """Trust ("reveal", "simultaneous_first", "first_above")""",
         'num_demo_participants': 2,
         'trust_score': "pss",
         'auto_trust_score': True,
-        "treatment_type": ("reveal", "sequential_first", "first_above"),
+        "treatment_type": ("reveal", "simultaneous_first", "first_above"),
         'app_sequence': ['trust'],
     },
 

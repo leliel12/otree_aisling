@@ -59,21 +59,22 @@
             The returner <strong>Player B</strong> is:
             {% if returner_trustworthy %}
             <span class="text-success">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
+                {{returner.score}}
             </span>
             {% else %}
             <span class="text-warning">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star half"></span>
+                {{returner.score}}
             </span>
-
             {% endif %}
         </p>
+        <p class="well">
+            Their score is based on their answers to the survey
+            about pro-­sociality--- behavior that benefits other people or
+            society as a whole. You all took the same survey at the
+            beginning of the experiment.
+        </p>
+
+
         <div class="col-md-12">
             {% formfield player.expect_other_player_to_return_revealed %}
         </div>
@@ -86,6 +87,8 @@
     </div>
 </div>
 {% endif %}
+
+{% include "trust/includes/auto_trust_score.html" %}
 
 {% endblock %}
 

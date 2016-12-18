@@ -1,0 +1,17 @@
+
+<div class="row text-center">
+    <div class="col-md-8 col-md-offset-2 well">
+        {% if subsession.round_play_type == "sequential" %}
+            <strong class="text-info">SEQUENTIAL PLAY:</strong>
+            You are playing <strong>sequentially</strong>,
+            meaning Player B <strong>will observe</strong> Player A’s decision
+            before making his own.
+        {% else %}
+            <strong class="text-success">SIMULTANEOUS PLAY:</strong>
+            You are playing <strong>simultaneously</strong>, meaning both
+            players make their decision at the same time. Player B will
+            <strong>NOT observe</strong> Player A’s decision before making his own.
+        {% endif %}
+    </div>
+</div>
+

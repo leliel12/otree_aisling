@@ -2,10 +2,12 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Decide - You are the Sender
+    Decide - You are the Player A
 {% endblock %}
 
 {% block content %}
+{% include "trust/includes/round_play_type.html" %}
+
 <div class="row lead">
     <div class="col-md-12">
         {% formfield group.ammount_given%}
@@ -16,6 +18,9 @@
         {% next_button %}
     </div>
 </div>
+
+{% include "trust/includes/auto_trust_score.html" %}
+
 {% endblock %}
 
 
