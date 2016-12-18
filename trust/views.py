@@ -129,14 +129,19 @@ class Expect(Page):
 
     def get_form_fields(self):
         fields = ["expect_other_player_to_return"]
-        if self.subsession.treatment_reveal_type:
+        if self.subsession.reveal_variation == "reveal":
             fields.append("expect_other_player_to_return_revealed")
         return fields
 
     def vars_for_template(self):
+        trust_score = self.session.config["trust_score"]
+        scores, var_name = Constants.trust_scores[trust_score]
+
         returner = self.group.get_player_by_role(Constants.returner)
-        reveal = self.subsession.treatment_reveal_type
-        return {"returner": returner, "reveal": reveal}
+        reveal = self.subsession.reveal_variation
+
+        returner_trustworthy = self.player.score == scores[-1]
+        return {"returner": returner, "reveal": reveal, "returner_trustworthy": returner_trustworthy}
 
 
 class Offer(Page):
@@ -173,13 +178,13 @@ class Results(Page):
 
 
 page_sequence = [
-    GamePortionOfExperiment,
-    TestOfUderStanding, AnswersTestOfUderStanding,
-    ExpectationsAndPercentages,
-    TestOfUderStandingPercentages, AnswersTestOfUderStandingPercentages,
+    #~ GamePortionOfExperiment,
+    #~ TestOfUderStanding, AnswersTestOfUderStanding,
+    #~ ExpectationsAndPercentages,
+    #~ TestOfUderStandingPercentages, AnswersTestOfUderStandingPercentages,
     AsignmentPage,
-    Instructions,
-    #~ Expect,
+    #~ Instructions,
+    Expect,
     #~ Offer, Return, ReturnWaitPage,
     #~ Results
 ]

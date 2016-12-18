@@ -53,11 +53,11 @@
 </div>
 
 {% if reveal %}
-<div id="second-div" style="display: none;"">
+<div id="second-div" style="display: none;">
     <div class="row lead">
         <p>
-            The returner player is:
-            {% if returner.trust_type == Constants.ttype_trustworthy %}
+            The returner <strong>Player B</strong> is:
+            {% if returner_trustworthy %}
             <span class="text-success">
                 <span class="glyphicon glyphicon-star"></span>
                 <span class="glyphicon glyphicon-star"></span>

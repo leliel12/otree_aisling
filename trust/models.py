@@ -25,7 +25,8 @@ Your app description
 class Constants(BaseConstants):
     name_in_url = 'trust'
     players_per_group = 2
-    num_rounds = 2
+    num_rounds = 10
+    half_rounds = int(num_rounds/2)
 
     amount_allocated = c(10)
 
@@ -76,6 +77,8 @@ class Subsession(BaseSubsession):
     order_variation = models.CharField(max_length=100, choices=Constants.order_variation)
     play_variation = models.CharField(max_length=100, choices=Constants.play_variation)
 
+    round_play_type = models.CharField(max_length=100, choices=Constants.reveal_variation)
+
     def _check(self, part, value, options, conf):
         if value not in options:
             options = ", ".join(options)
@@ -106,6 +109,14 @@ class Subsession(BaseSubsession):
                 for player in self.get_players():
                     player.participant.vars[var_name] = next(scores)
 
+        firsts_rounds, seconds_rounds = [
+            s.split("_", 1)[0] for s in Constants.play_variation]
+        if self.play_variation == Constants.play_variation[-1]:
+            firsts_rounds, seconds_rounds = seconds_rounds, firsts_rounds
+        if self.round_number <= Constants.half_rounds:
+            self.round_play_type = firsts_rounds
+        else:
+            self.round_play_type = seconds_rounds
 
 
 class Group(BaseGroup):
@@ -176,9 +187,6 @@ class Player(BasePlayer):
 
     selected_round_for_payoff = models.PositiveIntegerField()
 
-
-
-
     def role(self):
         return {1: Constants.sender, 2: Constants.returner}[self.id_in_group]
 
@@ -189,3 +197,10 @@ class Player(BasePlayer):
     @property
     def ps_score(self):
         return self.participant.vars["ps_score"]
+
+    @property
+    def score(self):
+        trust_score = self.session.config["trust_score"]
+        if trust_score == "pss":
+            return self.ps_score
+        return self.trust_type
