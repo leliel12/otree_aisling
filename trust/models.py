@@ -130,7 +130,8 @@ class Group(BaseGroup):
          widget=widgets.SliderInput())
 
     ammount_sent_back = models.CurrencyField(
-        doc="""Amount the returner decided to sent_back to the other player""")
+        widget=widgets.SliderInput(),
+        verbose_name="""Amount the returner decided to sent back to the other Player A""")
 
     @property
     def sender_payoff(self):
@@ -143,6 +144,10 @@ class Group(BaseGroup):
     def set_ammount_sent_back(self):
         self.ammount_sent_back = (
             self.ammount_given * self.percentage_sent_back / 100.)
+
+    def set_percentage_sent_back(self):
+        self.percentage_sent_back = (
+            self.ammount_sent_back * 100. / self.ammount_given)
 
     def set_payoff(self):
         for player in self.get_players():

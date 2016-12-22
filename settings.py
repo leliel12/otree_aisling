@@ -150,18 +150,35 @@ SESSION_CONFIGS = [
         'display_name': "Pre Survey",
         'num_demo_participants': 2,
         'app_sequence': ['pre_survey'],
-    },
-    {
-        'name': 'trust',
-        'display_name': """Trust ("reveal", "simultaneous_first", "first_above")""",
-        'num_demo_participants': 2,
-        'trust_score': "pss",
-        'auto_trust_score': True,
-        "treatment_type": ("reveal", "simultaneous_first", "first_above"),
-        'app_sequence': ['trust'],
-    },
-
+    }
 ]
+
+trusts = []
+full = []
+
+for reveal_variation  in ("reveal", "no-reveal"):
+    for play_variation  in ("simultaneous_first", "sequential_first"):
+        for order_variation  in ("first_above", "first_below"):
+            treatment_type = (reveal_variation,  play_variation, order_variation)
+            trusts.append({
+                "name": "trust_" + "_".join(treatment_type).replace("-", "_"),
+                "display_name": "Trust ({})".format(", ".join(map(str.title, treatment_type))),
+                "num_demo_participants": 2,
+                'trust_score': "pss",
+                "auto_trust_score": True,
+                "treatment_type": treatment_type,
+                'app_sequence': ["trust"]})
+            full.append({
+                "name": "full_" + "_".join(treatment_type).replace("-", "_"),
+                "display_name": "Full Game ({})".format(", ".join(map(str.title, treatment_type))),
+                "num_demo_participants": 4,
+                'trust_score': "pss",
+                "auto_trust_score": False,
+                "treatment_type": treatment_type,
+                'app_sequence': ["pre_survey", "trust"]})
+
+SESSION_CONFIGS += trusts + full
+
 
 # anything you put after the below line will override
 # oTree's default settings. Use with caution.

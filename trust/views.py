@@ -153,6 +153,39 @@ class Offer(Page):
         return self.player.role() == Constants.sender
 
 
+# =============================================================================
+# SEQUENTIAL
+# =============================================================================
+
+class OfferSequentialWait(WaitPage):
+
+    title_text = "Waiting for the Player A"
+    body_text = "You are the Player B in a sequential game. You need to wait until de Player A make the offer"
+
+    def is_displayed(self):
+        return (
+            self.subsession.round_play_type == "sequential" and
+            self.player.role() == Constants.returner)
+
+
+class ReturnSequential(Page):
+
+    form_model = models.Group
+    form_fields = ["ammount_sent_back"]
+
+    def vars_for_template(self):
+        return {"max_value": int(self.group.ammount_given * 3)}
+
+    def is_displayed(self):
+        return (
+            self.subsession.round_play_type == "sequential" and
+            self.player.role() == Constants.returner)
+
+
+# =============================================================================
+# SIMULTANEOUS
+# =============================================================================
+
 class ReturnSimultaneous(Page):
 
     form_model = models.Group
@@ -164,10 +197,15 @@ class ReturnSimultaneous(Page):
             self.player.role() == Constants.returner)
 
 
+# =============================================================================
+
 class ReturnWaitPage(WaitPage):
 
     def after_all_players_arrive(self):
-        self.group.set_ammount_sent_back()
+        if self.subsession.round_play_type == "simultaneous":
+            self.group.set_ammount_sent_back()
+        else:
+            self.group.set_percentage_sent_back()
         if self.subsession.round_number == Constants.num_rounds:
             self.group.set_payoff()
 
@@ -180,15 +218,21 @@ class Results(Page):
 
 
 page_sequence = [
-    #~ GamePortionOfExperiment,
-    #~ TestOfUderStanding, AnswersTestOfUderStanding,
-    #~ ExpectationsAndPercentages,
-    #~ TestOfUderStandingPercentages, AnswersTestOfUderStandingPercentages,
-    #~ AsignmentPage,
-    #~ Instructions,
-    #~ Expect,
+    GamePortionOfExperiment,
+    TestOfUderStanding, AnswersTestOfUderStanding,
+
+    ExpectationsAndPercentages,
+    TestOfUderStandingPercentages, AnswersTestOfUderStandingPercentages,
+
+    AsignmentPage,
+    Instructions,
+    Expect,
+
     Offer,
+    OfferSequentialWait,
     ReturnSimultaneous,
+    ReturnSequential,
+
     ReturnWaitPage,
     Results
 ]

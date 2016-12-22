@@ -1,0 +1,35 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Decide - You are the Player B
+{% endblock %}
+
+{% block content %}
+{% include "trust/includes/round_play_type.html" %}
+
+<div class="row lead">
+    <div class="col-md-12">
+        <div class="form-group required">
+            <label class="control-label" for="id_ammount_sent_back">Amount the returner decided to sent back to the other Player A:</label>
+            <div class="controls  field-ammount_sent_back">
+                <div class="input-group slider" data-slider="">
+                    <input type="range" name="ammount_sent_back" required="" max="{{max_value}}" id="id_ammount_sent_back" step="1" class="form-control">
+                    <span class="input-group-addon" data-slider-value="" title="current value"></span>
+                </div>
+            </div><!--- .controls -->
+        </div>
+    </div>
+</div>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+
+{% include "trust/includes/auto_trust_score.html" %}
+
+{% endblock %}
+
+
+

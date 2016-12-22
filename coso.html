@@ -1,0 +1,62 @@
+<div id="the-paper" class="slide section level1">
+<h1>The Paper</h1>
+<pre><code>Batista, G. E., Prati, R. C., &amp; Monard, M. C. (2004).
+
+A study of the behavior of several methods for balancing
+machine learning training data.
+
+ACM Sigkdd Explorations Newsletter, 6(1), 20-29.</code></pre>
+</div>
+<div id="python-tool-inbalanced-learn" class="slide section level1">
+<h1>Python Tool: Inbalanced Learn</h1>
+<p><strong>Home Page:</strong> https://github.com/scikit-learn-contrib/imbalanced-learn</p>
+<pre><code>Lemaitre, G., Nogueira, F., &amp; Aridas, C. K. (2016).
+
+Imbalanced-learn: A Python Toolbox to Tackle the Curse of
+Imbalanced Datasets in Machine Learning.
+
+arXiv preprint arXiv:1609.06570.</code></pre>
+</div>
+<div id="considerations" class="slide section level1">
+<h1>Considerations</h1>
+<ul>
+<li>Most of learning systems usually asumes that training sets are balanced</li>
+<li>Generally, the problem of imbalanced data sets occurs when one class represents a circumscribed concept.</li>
+<li>The ML community seems to agree on the hypothesis that the imbalance between classes is the major obstacle in inducing classifiers in imbalanced domains.</li>
+<li>However, it has also been observed that in some domains standard ML algorithms are capable of inducing good classifiers, even using highly imbalanced training sets.</li>
+</ul>
+<p><strong>Class imbalance is not the only problem responsible for the decrease in</strong> <strong>performance of learning algorithms.</strong></p>
+</div>
+<div id="why-learning-from-imbalanced-data-sets-might-be-difficult-12" class="slide section level1">
+<h1>Why Learning From Imbalanced Data Sets Might Be Difficult 1/2</h1>
+<div class="figure">
+<img src="imgs/figure1.png" alt="Many negative cases against some spare positive cases (a) balanced data set with well-defined clusters (b)" />
+<p class="caption">Many negative cases against some spare positive cases (a) balanced data set with well-defined clusters (b)</p>
+</div>
+</div>
+<div id="why-learning-from-imbalanced-data-sets-might-be-difficult-22" class="slide section level1">
+<h1>Why Learning From Imbalanced Data Sets Might Be Difficult 2/2</h1>
+<ul>
+<li>1-NN (KNN) may incorrectly classify many cases from the minority class because the nearest neighbors of these cases are examples belonging to the majority class.</li>
+<li>In the presence of class overlapping, decision trees may need to create many tests to distinguish the minority class cases from majority class cases.</li>
+<li>Pruning the decision tree might not necessarily alleviate the problem</li>
+</ul>
+</div>
+<div id="on-evaluating-classifiers-in-imbalanced-domains" class="slide section level1">
+<h1>On Evaluating Classifiers In Imbalanced Domains</h1>
+<p><strong>Confusion matrix for a two-class problem</strong> <span class="math display">\[
+\begin{tabular}{ l | c | r }
+    &amp; Positive Prediction &amp; Negative Prediction \\ \hline
+    Positive Class &amp; True Positive (TP)  &amp; False Negative (FN) \\
+    Negative Class &amp; False Positive (FP) &amp; True Negative (TN)  \\
+\end{tabular}
+\]</span></p>
+<p><strong>Error Rate</strong> <span class="math display">\[
+    Err = \frac{FP + FN}{TP + FN + FP + TN}
+\]</span></p>
+<p><strong>Accuracy</strong> <span class="math display">\[
+    Acc = \frac{TP + TN}{TP + FN + FP + TN}
+\]</span></p>
+<h2 id="accuracy-paradox">Accuracy Paradox</h2>
+<p>The accuracy paradox for predictive analytics states that predictive models with a given level of accu</p>
+</div>
