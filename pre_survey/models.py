@@ -69,7 +69,6 @@ class Subsession(BaseSubsession):
                 player.donate, player.present,
             ]
 
-        import ipdb; ipdb.set_trace()
         means, stds = self._get_stats(responses)
         normalized = self._normalize(responses, means, stds)
         scores = self._score(normalized)
