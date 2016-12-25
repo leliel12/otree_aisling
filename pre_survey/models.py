@@ -50,7 +50,7 @@ class Subsession(BaseSubsession):
         norms = {}
         for player, answers in responses.items():
             norms[player] = [
-                (a-mean)/sigma for a, mean, sigma in zip(answers, means, stds)]
+                (a-mean)/(sigma or 1) for a, mean, sigma in zip(answers, means, stds)]
         return norms
 
     def _score(self, normalized):
@@ -81,6 +81,7 @@ class Subsession(BaseSubsession):
                 player.ps_score = Constants.pss_above
             else:
                 player.ps_score = Constants.pss_below
+            player.participant.vars["ps_score"] = player.ps_score
 
 
 class Group(BaseGroup):
