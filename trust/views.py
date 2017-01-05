@@ -12,6 +12,7 @@ from .models import Constants
 
 def vars_for_all_templates(self):
     return {
+        "treatment-conf": self.session.config["treatment_type"],
         "auto_trust_score": self.session.config.get("auto_trust_score"),
         "trust_score": self.session.config["trust_score"]}
 
@@ -138,16 +139,28 @@ class Expect(Page):
         scores, var_name = Constants.trust_scores[trust_score]
 
         returner = self.group.get_player_by_role(Constants.returner)
-        reveal = self.subsession.reveal_variation
 
-        returner_trustworthy = self.player.score == scores[-1]
-        return {"returner": returner, "reveal": reveal, "returner_trustworthy": returner_trustworthy}
+        returner_trustworthy = (self.player.score == scores[-1])
+        return {"returner": returner, "returner_trustworthy": returner_trustworthy}
+
+
+class WaitForExpectation(WaitPage):
+    pass
 
 
 class Offer(Page):
 
     form_model = models.Group
     form_fields = ["ammount_given"]
+
+    def vars_for_template(self):
+        trust_score = self.session.config["trust_score"]
+        scores, var_name = Constants.trust_scores[trust_score]
+
+        returner = self.group.get_player_by_role(Constants.returner)
+
+        returner_trustworthy = (self.player.score == scores[-1])
+        return {"returner": returner, "returner_trustworthy": returner_trustworthy}
 
     def is_displayed(self):
         return self.player.role() == Constants.sender
@@ -226,7 +239,7 @@ page_sequence = [
 
     AsignmentPage,
     Instructions,
-    Expect,
+    Expect, WaitForExpectation,
 
     Offer,
     OfferSequentialWait,

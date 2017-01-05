@@ -1,0 +1,9 @@
+{% if returner_trustworthy %}
+<span class="text-success">
+    {{returner.score}}
+</span>
+{% else %}
+<span class="text-warning">
+    {{returner.score}}
+</span>
+{% endif %}

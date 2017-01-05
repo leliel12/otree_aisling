@@ -8,6 +8,16 @@
 {% block content %}
 {% include "trust/includes/round_play_type.html" %}
 
+{% if subsession.reveal_variation == "reveal" %}
+<div class="row text-center lead">
+    <div class="col-md-10 col-md-offset-1 well well-alt">
+        <strong>Reminder:</strong> The returner <strong class="text-info">Player B</strong> is:
+        {% include "trust/includes/returner_trustworthy.html" %}
+    </div>
+</div>
+{% endif %}
+
+
 <div class="row lead">
     <div class="col-md-12">
         {% formfield group.ammount_given%}

@@ -25,7 +25,7 @@ Your app description
 class Constants(BaseConstants):
     name_in_url = 'trust'
     players_per_group = 2
-    num_rounds = 10
+    num_rounds = 20
     half_rounds = int(num_rounds/2)
 
     amount_allocated = c(10)

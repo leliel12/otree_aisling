@@ -42,7 +42,7 @@
     <div class="row">
         <div class="col-md-12">
             <span class="pull-right">
-                {% if reveal %}
+                {% if subsession.reveal_variation == "reveal" %}
                 <button class="btn btn-primary btn-large btn-primary next-button" id="first">Next</button>
                 {% else %}
                 {% next_button %}
@@ -52,20 +52,12 @@
     </div>
 </div>
 
-{% if reveal %}
+{% if subsession.reveal_variation == "reveal" %}
 <div id="second-div" style="display: none;">
     <div class="row lead">
         <p>
             The returner <strong>Player B</strong> is:
-            {% if returner_trustworthy %}
-            <span class="text-success">
-                {{returner.score}}
-            </span>
-            {% else %}
-            <span class="text-warning">
-                {{returner.score}}
-            </span>
-            {% endif %}
+            {% include "trust/includes/returner_trustworthy.html" %}
         </p>
         <p class="well">
             Their score is based on their answers to the survey
@@ -95,7 +87,7 @@
 
 {% block scripts %}
 <script type="text/javascript">
-{% if reveal %}
+{% if subsession.reveal_variation == "reveal" %}
 $(document).ready(function(){
     $("#first").click(function(){
         $("#first-div").hide("fast");
