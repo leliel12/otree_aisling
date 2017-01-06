@@ -84,9 +84,10 @@ class AsignmentPage(WaitPage):
         def invert_groups(groups):
             return [list(reversed(g)) for g in groups]
         first_half = [
-            list(next(group_candidates)) for _ in range(0, int(num_rounds/2))]
+            list(next(group_candidates)) for _ in range(0, int(num_rounds/4))]
         second_half = [invert_groups(g) for g in first_half]
-        return first_half + second_half
+        total = first_half + second_half + first_half + second_half
+        return total
 
     def _participants_to_players(self, participants, subsession):
         p2p = {p.participant: p for p in subsession.get_players()}

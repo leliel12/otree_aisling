@@ -112,6 +112,7 @@ class Subsession(BaseSubsession):
             s.split("_", 1)[0] for s in Constants.play_variation]
         if self.play_variation == Constants.play_variation[-1]:
             firsts_rounds, seconds_rounds = seconds_rounds, firsts_rounds
+
         if self.round_number <= Constants.half_rounds:
             self.round_play_type = firsts_rounds
         else:
