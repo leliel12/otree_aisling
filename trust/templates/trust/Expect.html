@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    What do you expect the other player to return
+    You are Player A. What are your expectations?
 {% endblock %}
 
 
@@ -32,6 +32,7 @@
 
 
 {% block content %}
+{% include "trust/includes/round_play_type.html" %}
 <div id="first-div">
     <div class="row lead">
         <div class="col-md-12">
@@ -56,7 +57,7 @@
 <div id="second-div" style="display: none;">
     <div class="row lead">
         <p>
-            The returner <strong>Player B</strong> is:
+            The <strong>Player B</strong> is:
             {% include "trust/includes/returner_trustworthy.html" %}
         </p>
         <p class="well">
