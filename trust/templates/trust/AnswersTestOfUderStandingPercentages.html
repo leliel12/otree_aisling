@@ -3,7 +3,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Answers to Test of Understanding Percentages
+    Answers to Confirmation of Understanding Expectations and Percentages
 {% endblock %}
 
 {% block styles %}
@@ -25,6 +25,10 @@ li {
 
 {% block content %}
 <div class="row lead">
+    <p>
+        Here we have included the answers so you can check your own answers to
+        make sure you fully understand the expectations and percent returns questions.
+    </p>
     <ul style="list-style-type: none">
         {% for question, answer, explanation in Constants.test_of_understanding_percentage %}
         <li>

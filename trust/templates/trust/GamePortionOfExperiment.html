@@ -3,11 +3,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Game
-  Portion
-  of
-  Experiment
-
+    Game Portion of Experiment
 {% endblock %}
 
 {% block content %}
@@ -32,12 +28,18 @@
         Player A decides to share with player B. Note that in this game,
         Player B can choose to return part or all of the money received from Player A.
     </p>
-    <p>The following are some example scenarios:</p>
+    <p>The following is an example scenario:</p>
     <p>
         <strong>Example 1:</strong> Player A has $10 and player B has $0.
         Player A decides to give player B $5. Player B receives 3*$5 = $15.
         Player B can then chooses to return $5 of the $15. At the end of the
         round, player A gets $10 as payoff and Player B also gets $10 as payoff.
+    </p>
+    <p>
+        Additionally, you’ll play some rounds of the game simultaneously where
+        player B decides what percentage of the money to send at the same time
+        as player A decides how much to send. We’ll walk you through the
+        difference between sequential and simultaneous play later.
     </p>
     <p>
         Lastly, remember that the money involved is real and heavily impacts
