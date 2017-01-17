@@ -7,7 +7,7 @@ from .models import Constants
 class Intro(Page):
 
     form_model = models.Player
-    form_fields = ["computer", "gender"]
+    form_fields = ["computer"]
 
 
 class Screen1(Page):

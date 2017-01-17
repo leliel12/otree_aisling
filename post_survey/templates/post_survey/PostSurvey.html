@@ -1,0 +1,170 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+    Finishing Questions
+{% endblock %}
+
+
+{% block styles %}
+<style>
+    li.field-container select {
+        display: inline;
+        margin: 2px;
+        width: 150x;
+    }
+    li.field-container label {
+        font-weight: normal;
+    }
+    .inlinefield input {
+        display: inline;
+    }
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div>
+    <div class="row lead">
+        <div class="col-md-12">
+            <p>
+                We’re almost done; we would like to ask you a couple questions before you leave.
+            </p>
+            <p>
+                Here are a number of characteristics that may or may not apply to you.
+                For example, do you agree that you are someone who likes to spend time with others?
+                Please select an appropriate answer to each statement to indicate the extent
+                to which <strong>you agree or disagree with that statement</strong>. Please note you will
+                not be able to proceed without answering each statement. Kindly fill
+                out every statement to the best of your knowledge.
+            </p>
+        </div>
+    </div>
+    <div class="row lead">
+        <div class="col-md-12 center">
+            <ol>
+                <li class="field-container">
+                    {{form.extraverted_enthusiastic}}
+                    <label>{{form.extraverted_enthusiastic.label}}</label>
+                </li>
+                <li class="field-container">
+                    {{form.dependable_self_disciplined}}
+                    <label>{{form.dependable_self_disciplined.label}}</label>
+                </li>
+                <li class="field-container">
+                    {{form.open_new_speriences}}
+                    <label>{{form.open_new_speriences.label}}</label>
+                </li>
+                <li class="field-container">
+                    {{form.sympathetic_warm}}
+                    <label>{{form.sympathetic_warm.label}}</label>
+                </li>
+                <li class="field-container">
+                    {{form.calm_emotionally_stable}}
+                    <label>{{form.calm_emotionally_stable.label}}</label>
+                </li>
+                <li class="field-container">
+                    {{form.critical_quarrelsome}}
+                    <label>{{form.critical_quarrelsome.label}}</label>
+                </li>
+                <li class="field-container">
+                    {{form.anxious_easily_upset}}
+                    <label>{{form.anxious_easily_upset.label}}</label>
+                </li>
+                <li class="field-container">
+                    {{form.reserved_quiet}}
+                    <label>{{form.reserved_quiet.label}}</label>
+                </li>
+                <li class="field-container">
+                    {{form.disorganized_careless}}
+                    <label>{{form.disorganized_careless.label}}</label>
+                </li>
+                <li class="field-container">
+                    {{form.conventional_uncreative}}
+                    <label>{{form.conventional_uncreative.label}}</label>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row lead">
+        <div class="col-md-12">
+            <label>Which of the following best describes your race or ethnicity? (Check all that apply.)</label>
+
+                <span>{% formfield player.asian %}</span>
+                <span>{% formfield player.black_african_american %}</span>
+                <span>{% formfield player.hispanic_latino %}</span>
+                <span>{% formfield player.white %}</span>
+                <span>{% formfield player.other %}</span>
+                <span>{% formfield player.prefer_not_to_state %}</span>
+        </div>
+    </div>
+
+    <div class="row lead">
+        <div class="col-md-12">
+            <label>{{form.major.label}}</label>
+        </div>
+    </div>
+    <div class="row lead">
+        <div class="col-md-12">
+            {{form.major}}
+        </div>
+    </div>
+
+    <div class="row lead">
+        <div class="col-md-12">
+            <label>{{form.year_berkeley.label}}</label>
+        </div>
+    </div>
+    <div class="row lead">
+        <div class="col-md-12 ">
+            {% formfield player.year_berkeley with label=""%}
+        </div>
+    </div>
+    <div class="row lead">
+        <div class="col-md-12">
+            <label>{{form.stem_courses.label}}</label>
+        </div>
+    </div>
+    <div class="row lead">
+        <div class="col-md-12  inlinefield">
+            {{form.stem_courses}} <strong>courses</strong>
+        </div>
+    </div>
+    <div class="row lead">
+        <div class="col-md-12">
+            <label>{{form.economic_courses.label}}</label>
+        </div>
+    </div>
+    <div class="row lead">
+        <div class="col-md-12 inlinefield">
+            {{form.economic_courses}} <strong>courses</strong>
+        </div>
+    </div>
+
+    <div class="row lead">
+        <div class="col-md-12">
+            <label>{{form.gender.label}}</label>
+        </div>
+    </div>
+    <div class="row lead">
+        <div class="col-md-12 ">
+            {{form.gender}}
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="pull-right">{% next_button %}</span>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+
+

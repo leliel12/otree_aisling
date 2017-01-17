@@ -35,41 +35,60 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
-    computer = models.CharField(
-        max_length=10,
-        verbose_name="What computer are you sitting at?")
+    extraverted_enthusiastic = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Extraverted, enthusiastic")
+    dependable_self_disciplined = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Dependable, self-disciplined")
+    open_new_speriences = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Open to new experiences, complex")
+    sympathetic_warm = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Sympathetic, warm")
+    calm_emotionally_stable = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Calm, emotionally stable")
+    critical_quarrelsome = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Critical, quarrelsome")
+    anxious_easily_upset = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Anxious, easily upset")
+    reserved_quiet = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Reserved, quiet")
+    disorganized_careless = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Disorganized, careless")
+    conventional_uncreative = models.PositiveIntegerField(
+        choices=Constants.agree_levels,
+        verbose_name="Conventional, uncreative")
+
+
+    asian = models.BooleanField(verbose_name="Asian", widget=widgets.CheckboxInput)
+    black_african_american = models.BooleanField(verbose_name="Black / African American", widget=widgets.CheckboxInput)
+    hispanic_latino = models.BooleanField(verbose_name="Hispanic / Latino", widget=widgets.CheckboxInput)
+    white = models.BooleanField(verbose_name="White", widget=widgets.CheckboxInput)
+    other = models.BooleanField(verbose_name="Other", widget=widgets.CheckboxInput)
+    prefer_not_to_state = models.BooleanField(verbose_name="Prefer not to state", widget=widgets.CheckboxInput)
+
+    major = models.CharField(
+        max_length=255, verbose_name="What is your major?")
+
+    year_berkeley = models.PositiveIntegerField(
+        widget=widgets.RadioSelectHorizontal,
+        choices=list(sorted({1: "1st", 2: "2nd", 3: "3rd", 4: "4th", 5: "5th"}.items())),
+        verbose_name="What year are you at UC Berkeley?")
+
+    stem_courses = models.PositiveIntegerField(
+        verbose_name="How many Science, Technology, Engineering, and Math (STEM) Courses have you taken in university?")
+
+    economic_courses = models.PositiveIntegerField(
+        verbose_name="How many economics courses have you taken in university?")
+
     gender = models.CharField(
         max_length=6, choices=["Male", "Female"],
         widget=widgets.RadioSelectHorizontal,
         verbose_name="What is your gender?")
-
-    is_talkative = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Extraverted, enthusiastic")
-    has_an_active_imagination = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Critical, quarrelsome")
-    tends_to_find_fault_with_others = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Dependable, self-disciplined")
-    tends_to_be_quiet = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Anxious, easily upset")
-    does_a_thorough_job = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Open to new experiences, complex")
-    is_generally_trusting = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Reserved, quiet")
-    is_depressed_blue = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Sympathetic, warm")
-    tends_to_be_lazy = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Disorganized, careless")
-    is_original_comes_up_with_new_ideas = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Calm, emotionally stable")
-    is_emotionally_stable_not_easily_upset = models.PositiveIntegerField(
-        choices=Constants.agree_levels,
-        verbose_name="Conventional, uncreative")

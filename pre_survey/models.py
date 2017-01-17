@@ -96,10 +96,6 @@ class Player(BasePlayer):
     computer = models.CharField(
         max_length=10,
         verbose_name="What computer are you sitting at?")
-    gender = models.CharField(
-        max_length=6, choices=["Male", "Female"],
-        widget=widgets.RadioSelectHorizontal,
-        verbose_name="What is your gender?")
 
     people_best_intentions = models.IntegerField(
         choices=Constants.describe_me_level,

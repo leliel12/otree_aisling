@@ -4,31 +4,41 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class Intro(Page):
-
-    form_model = models.Player
-    form_fields = ["computer", "gender"]
-
-class BigFive(Page):
+class PostSurvey(Page):
 
     form_model = models.Player
     form_fields = [
-        'is_talkative',
-        'tends_to_find_fault_with_others',
+        'extraverted_enthusiastic',
+        'dependable_self_disciplined',
+        'open_new_speriences',
+        'sympathetic_warm',
+        'calm_emotionally_stable',
+        'critical_quarrelsome',
+        'anxious_easily_upset',
+        'reserved_quiet',
+        'disorganized_careless',
+        'conventional_uncreative',
 
-        'does_a_thorough_job',
-        'is_depressed_blue',
-        'is_original_comes_up_with_new_ideas',
+        'asian',
+        'black_african_american',
+        'hispanic_latino',
+        'white',
+        'other',
+        'prefer_not_to_state',
 
-        'has_an_active_imagination',
-        'tends_to_be_quiet',
-        'is_generally_trusting',
-
-        'tends_to_be_lazy',
-        'is_emotionally_stable_not_easily_upset',
+        "major",
+        "year_berkeley",
+        "stem_courses",
+        "economic_courses",
+        "gender",
     ]
+
+class Finish(Page):
+    pass
 
 
 page_sequence = [
-    Intro, BigFive
+    PostSurvey, Finish
 ]
+
+

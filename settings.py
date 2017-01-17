@@ -150,6 +150,12 @@ SESSION_CONFIGS = [
         'display_name': "Pre Survey",
         'num_demo_participants': 2,
         'app_sequence': ['pre_survey'],
+    },
+    {
+        'name': 'post_survey',
+        'display_name': "Post Survey",
+        'num_demo_participants': 1,
+        'app_sequence': ['post_survey'],
     }
 ]
 
@@ -175,7 +181,7 @@ for reveal_variation  in ("reveal", "no-reveal"):
                 'trust_score': "pss",
                 "auto_trust_score": False,
                 "treatment_type": treatment_type,
-                'app_sequence': ["pre_survey", "trust"]})
+                'app_sequence': ["pre_survey", "trust", 'post_survey']})
 
 SESSION_CONFIGS += trusts + full
 
