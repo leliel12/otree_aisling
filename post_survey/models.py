@@ -67,12 +67,12 @@ class Player(BasePlayer):
         verbose_name="Conventional, uncreative")
 
 
-    asian = models.BooleanField(verbose_name="Asian", widget=widgets.CheckboxInput)
-    black_african_american = models.BooleanField(verbose_name="Black / African American", widget=widgets.CheckboxInput)
-    hispanic_latino = models.BooleanField(verbose_name="Hispanic / Latino", widget=widgets.CheckboxInput)
-    white = models.BooleanField(verbose_name="White", widget=widgets.CheckboxInput)
-    other = models.BooleanField(verbose_name="Other", widget=widgets.CheckboxInput)
-    prefer_not_to_state = models.BooleanField(verbose_name="Prefer not to state", widget=widgets.CheckboxInput)
+    asian = models.BooleanField(verbose_name="Asian", widget=widgets.CheckboxInput, blank=True)
+    black_african_american = models.BooleanField(verbose_name="Black / African American", widget=widgets.CheckboxInput, blank=True)
+    hispanic_latino = models.BooleanField(verbose_name="Hispanic / Latino", widget=widgets.CheckboxInput, blank=True)
+    white = models.BooleanField(verbose_name="White", widget=widgets.CheckboxInput, blank=True)
+    other = models.BooleanField(verbose_name="Other", widget=widgets.CheckboxInput, blank=True)
+    prefer_not_to_state = models.BooleanField(verbose_name="Prefer not to state", widget=widgets.CheckboxInput, blank=True)
 
     major = models.CharField(
         max_length=255, verbose_name="What is your major?")
