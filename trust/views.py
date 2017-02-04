@@ -111,7 +111,7 @@ class AsignmentPage(WaitPage):
             group_a, group_b = group_b, group_a
 
         group_candidates = self._get_group_candidates(group_a, group_b)
-        groups = self._select_groups(group_candidates, Constants.num_rounds)
+        groups = self._select_groups(group_candidates, Constants.normal_game_rounds)
         while len(groups) < Constants.num_rounds:
             groups.append(list(next(group_candidates)))
         for subsession in self.subsession.in_rounds(1, Constants.num_rounds):
