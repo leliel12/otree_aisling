@@ -14,7 +14,8 @@ def vars_for_all_templates(self):
     return {
         "treatment-conf": self.session.config["treatment_type"],
         "auto_trust_score": self.session.config.get("auto_trust_score"),
-        "trust_score": self.session.config["trust_score"]}
+        "trust_score": self.session.config["trust_score"],
+        "voted_round": self.subsession.voted_round}
 
 
 # =============================================================================
@@ -111,10 +112,16 @@ class AsignmentPage(WaitPage):
 
         group_candidates = self._get_group_candidates(group_a, group_b)
         groups = self._select_groups(group_candidates, Constants.num_rounds)
+        while len(groups) < Constants.num_rounds:
+            groups.append(list(next(group_candidates)))
         for subsession in self.subsession.in_rounds(1, Constants.num_rounds):
             group = groups[subsession.round_number - 1]
             players = self._participants_to_players(group, subsession)
             subsession.set_group_matrix(players)
+
+            # copy the value of round_play_type to every group
+            for gobject in subsession.get_groups():
+                gobject.group_play_type = subsession.round_play_type
 
 
 class Instructions(Page):
@@ -127,7 +134,7 @@ class Expect(Page):
     form_model = models.Player
 
     def is_displayed(self):
-        return self.player.role() == Constants.sender
+        return self.player.role() == Constants.sender and self.subsession.normal_round
 
     def get_form_fields(self):
         fields = ["expect_other_player_to_return"]
@@ -146,8 +153,58 @@ class Expect(Page):
 
 
 class WaitForExpectation(WaitPage):
-    pass
 
+    def is_displayed(self):
+        return self.subsession.normal_round
+
+
+# =============================================================================
+# VOTED ROUNDS
+# =============================================================================
+
+class InstructionsVoting(Page):
+    def is_displayed(self):
+        return self.subsession.round_number == Constants.first_voted_round
+
+
+class Voting(Page):
+    form_model = models.Player
+    form_fields = ["vote_game"]
+
+    def is_displayed(self):
+        return self.subsession.voted_round
+
+    def vars_for_template(self):
+        trust_score = self.session.config["trust_score"]
+        scores, var_name = Constants.trust_scores[trust_score]
+        return {
+            "player_trustworthy": (self.player.score == scores[0]),
+            "partner": self.player.get_others_in_group()[0]}
+
+
+class WaitVote(WaitPage):
+
+    def is_displayed(self):
+        return self.subsession.voted_round
+
+    def after_all_players_arrive(self):
+        self.group.choice_group_play_type_by_vote()
+
+
+class VoteResult(Page):
+    def is_displayed(self):
+        return self.subsession.voted_round
+
+    def vars_for_template(self):
+        selected = self.group.selected_vote
+        for k, v in Constants.votes:
+            if k == selected:
+                return {"scenario": v}
+
+
+# =============================================================================
+# GAME
+# =============================================================================
 
 class Offer(Page):
 
@@ -178,7 +235,7 @@ class OfferSequentialWait(WaitPage):
 
     def is_displayed(self):
         return (
-            self.subsession.round_play_type == "sequential" and
+            self.group.group_play_type == "sequential" and
             self.player.role() == Constants.returner)
 
 
@@ -192,7 +249,7 @@ class ReturnSequential(Page):
 
     def is_displayed(self):
         return (
-            self.subsession.round_play_type == "sequential" and
+            self.group.group_play_type == "sequential" and
             self.player.role() == Constants.returner)
 
 
@@ -207,7 +264,7 @@ class ReturnSimultaneous(Page):
 
     def is_displayed(self):
         return (
-            self.subsession.round_play_type == "simultaneous" and
+            self.group.group_play_type == "simultaneous" and
             self.player.role() == Constants.returner)
 
 
@@ -216,7 +273,7 @@ class ReturnSimultaneous(Page):
 class ReturnWaitPage(WaitPage):
 
     def after_all_players_arrive(self):
-        if self.subsession.round_play_type == "simultaneous":
+        if self.group.group_play_type == "simultaneous":
             self.group.set_ammount_sent_back()
         else:
             self.group.set_percentage_sent_back()
@@ -233,14 +290,20 @@ class Results(Page):
 
 page_sequence = [
     GamePortionOfExperiment,
-    TestOfUderStanding, AnswersTestOfUderStanding,
+    TestOfUderStanding,
+    AnswersTestOfUderStanding,
 
     ExpectationsAndPercentages,
-    TestOfUderStandingPercentages, AnswersTestOfUderStandingPercentages,
+    TestOfUderStandingPercentages,
+    AnswersTestOfUderStandingPercentages,
 
     AsignmentPage,
+
     Instructions,
     Expect, WaitForExpectation,
+
+    InstructionsVoting,
+    Voting, WaitVote, VoteResult,
 
     Offer,
     OfferSequentialWait,

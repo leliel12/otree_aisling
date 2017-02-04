@@ -1,0 +1,39 @@
+
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Selected Game Scenario
+{% endblock %}
+
+{% block content %}
+<div class="row lead text-center">
+    <div class="col-md-12">
+        <p>
+            The game scenario selected was
+        </p>
+        <p><strong class="text-success">{{scenario}}</strong></p>
+        <p>
+            selected by
+            <strong class="text-info">
+                {% if group.selected_vote_of_player  == player %}
+                YOU
+                {% else %}Your partner{% endif %}
+            </strong>
+        </p>
+    </div>
+</div>
+
+<hr>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+
+{% include "trust/includes/auto_trust_score.html" %}
+
+{% endblock %}
+
+
+

@@ -1,0 +1,49 @@
+
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Selecting Game Scenario
+{% endblock %}
+
+{% block content %}
+{% if subsession.reveal_variation == "reveal" %}
+<div class="row text-center">
+    <div class="col-md-10 col-md-offset-1 well well-alt">
+        <p>
+            <strong>Reminder:</strong>
+            Your partner is
+            <span class="{% if not player_trustworthy %}text-success{% else %}text-warning {% endif %}">
+                {{partner.score}}
+            </span>,
+            and you are
+            <span class="{% if player_trustworthy %}text-success{% else %}text-warning {% endif %}">
+                {{player.score}}
+            </span>
+        </p>
+    </div>
+</div>
+{% endif %}
+<div class="row lead">
+    <div class="col-md-12">
+        <p>Please choose which scenario you would like to play. The computer will randomly select your choice or your partner’s choice to be played. Then you and your partner will play whichever choice is selected</p>
+        <div>
+            {% formfield player.vote_game with label=""%}
+
+        </div>
+    </div>
+</div>
+
+<hr>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+
+{% include "trust/includes/auto_trust_score.html" %}
+
+{% endblock %}
+
+
+

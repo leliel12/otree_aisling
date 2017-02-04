@@ -26,13 +26,13 @@ class Constants(BaseConstants):
     name_in_url = 'trust'
     players_per_group = 2
 
-    normal_game_rounds = 4
+    normal_game_rounds = 20
     half_normal_game_rounds = int(normal_game_rounds/2)
 
     voted_rounds = 5
+    first_voted_round = normal_game_rounds + 1
 
     num_rounds = normal_game_rounds + voted_rounds
-
 
     amount_allocated = c(10)
 
@@ -71,15 +71,21 @@ class Constants(BaseConstants):
             "($10 * 2.00)= $20",
             "Player B agreed to send 200% and 200% of $10 is $20.")]
 
+    votes = [
+        ("sequential_Sender_Returner", "Sequential play: I’m player A and my partner is player B"),
+        ("sequential_Returner_Sender", "Sequential play: My partner is player A and I’m player B"),
+        ("simultaneous_Sender_Returner", "Simultaneous play: I’m player A and my partner is player B"),
+        ("simultaneous_Returner_Sender","Simultaneous play: My partner is player A and I’m player B"),
+    ]
+
     reveal_variation = ("reveal", "no-reveal")
     order_variation = ("first_above", "first_below")
     play_variation = ("simultaneous_first", "sequential_first")
 
 
-
 class Subsession(BaseSubsession):
 
-    voted_game = models.BooleanField(default=False)
+    voted_round = models.BooleanField(default=False)
     reveal_variation = models.CharField(max_length=100, choices=Constants.reveal_variation)
     order_variation = models.CharField(max_length=100, choices=Constants.order_variation)
     play_variation = models.CharField(max_length=100, choices=Constants.play_variation)
@@ -134,14 +140,17 @@ class Subsession(BaseSubsession):
         elif self.round_number <= Constants.normal_game_rounds:
             self.round_play_type = seconds_rounds
         else:
-            self.voted_game = True
+            self.voted_round = True
 
     @property
-    def normal_game(self):
-        return not self.voted_game
+    def normal_round(self):
+        return not self.voted_round
 
 
 class Group(BaseGroup):
+
+    group_play_type = models.CharField(max_length=100, choices=Constants.reveal_variation)
+    selected_vote_of_participant_id = models.PositiveIntegerField()
 
     ammount_given = models.CurrencyField(
         doc="""Amount the sender decided to give to the other player""",
@@ -155,6 +164,26 @@ class Group(BaseGroup):
     ammount_sent_back = models.CurrencyField(
         widget=widgets.SliderInput(),
         verbose_name="""Amount the returner decided to sent back to the other Player A""")
+
+    def choice_group_play_type_by_vote(self):
+        players = self.get_players()
+        selected = random.choice(players)
+        self.selected_vote_of_participant_id = selected.participant.id
+        pt, o0, o1 = selected.vote_game.split("_")
+        self.group_play_type = pt
+        if selected.role() != o0:
+            players.reverse()
+            self.set_players(players)
+
+    @property
+    def selected_vote_of_player(self):
+        for player in self.get_players():
+            if player.participant.id == self.selected_vote_of_participant_id:
+                return player
+
+    @property
+    def selected_vote(self):
+        return self.selected_vote_of_player.vote_game
 
     @property
     def sender_payoff(self):
@@ -201,6 +230,9 @@ class Player(BasePlayer):
         verbose_name=Constants.test_of_understanding_percentage[1][0])
     tunderstanding_percentage_3 = models.IntegerField(
         verbose_name=Constants.test_of_understanding_percentage[2][0])
+
+    vote_game = models.CharField(
+        max_length=255, choices=Constants.votes, widget=widgets.RadioSelect())
 
     expect_other_player_to_return = models.IntegerField(
         doc="""What do you expect that the other player will return?""",

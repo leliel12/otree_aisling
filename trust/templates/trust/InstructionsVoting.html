@@ -1,0 +1,36 @@
+
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Instructions for final rounds
+{% endblock %}
+
+{% block content %}
+<div class="row lead">
+    <p>Now that you are familiar with many scenarios of the game, you get
+    to pick which scenario you want to play.</p>
+    <p>You and your partner both select which scenario to play and who plays
+    what role.Then the computer will randomly choose one of you and implement
+    your selection. </p>
+    <p>Remember one of these rounds or the previous rounds you played will be
+    chosen at random to be your final payoff round. You'll get paid
+    according to your outcome in that round plus your $5 show-up fee.
+    For example, suppose we randomly select round 11 and you earned $15 in
+    round 11, you'll leave the Xlab today with $20.</p>
+
+</div>
+
+<hr>
+<div class="row lead">
+    <div class="col-md-12">
+        {% next_button %}
+    </div>
+</div>
+
+{% include "trust/includes/auto_trust_score.html" %}
+
+{% endblock %}
+
+
+
