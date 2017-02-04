@@ -25,8 +25,14 @@ Your app description
 class Constants(BaseConstants):
     name_in_url = 'trust'
     players_per_group = 2
-    num_rounds = 20
-    half_rounds = int(num_rounds/2)
+
+    normal_game_rounds = 4
+    half_normal_game_rounds = int(normal_game_rounds/2)
+
+    voted_rounds = 5
+
+    num_rounds = normal_game_rounds + voted_rounds
+
 
     amount_allocated = c(10)
 
@@ -73,6 +79,7 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
 
+    voted_game = models.BooleanField(default=False)
     reveal_variation = models.CharField(max_length=100, choices=Constants.reveal_variation)
     order_variation = models.CharField(max_length=100, choices=Constants.order_variation)
     play_variation = models.CharField(max_length=100, choices=Constants.play_variation)
@@ -86,18 +93,23 @@ class Subsession(BaseSubsession):
             raise ImproperlyConfigured(msg)
 
     def before_session_starts(self):
+        # retrieve and check all the treatment type and set the values
+        # of the configuration of this subsession
         treatment = self.session.config['treatment_type']
-
         self.reveal_variation, self.play_variation, self.order_variation  = treatment
         self._check("reveal", self.reveal_variation, Constants.reveal_variation, str(treatment))
         self._check("order", self.order_variation, Constants.order_variation, str(treatment))
         self._check("play", self.play_variation, Constants.play_variation, str(treatment))
 
+        # here we cheat we select from which roun we are going to select the payoff ot
+        # every player
         for player in self.get_players():
             if self.round_number == 1:
                 player.selected_round_for_payoff = random.randint(1, Constants.num_rounds)
             else:
                 player.selected_round_for_payoff = player.in_round(1).selected_round_for_payoff
+
+        # here we facke the pss of the player if we are in standalone trust game
         if self.round_number == 1:
             trust_score = self.session.config["trust_score"]
             if trust_score not in Constants.trust_scores:
@@ -108,15 +120,25 @@ class Subsession(BaseSubsession):
                 for player in self.get_players():
                     player.participant.vars[var_name] = next(scores)
 
+        # here we select the play variation order "simulataneous first" or
+        # sequetial first
         firsts_rounds, seconds_rounds = [
             s.split("_", 1)[0] for s in Constants.play_variation]
         if self.play_variation == Constants.play_variation[-1]:
             firsts_rounds, seconds_rounds = seconds_rounds, firsts_rounds
 
-        if self.round_number <= Constants.half_rounds:
+        # finally we set the round play type of every round and we
+        # set voted_game to true for the voted rounds still we dont use this
+        if self.round_number <= Constants.half_normal_game_rounds:
             self.round_play_type = firsts_rounds
-        else:
+        elif self.round_number <= Constants.normal_game_rounds:
             self.round_play_type = seconds_rounds
+        else:
+            self.voted_game = True
+
+    @property
+    def normal_game(self):
+        return not self.voted_game
 
 
 class Group(BaseGroup):
