@@ -65,7 +65,6 @@ class Constants(BaseConstants):
             "After receiving the $10 which turns in $30, Player B decides that they will send back $10. What is the percentage of return from Player B?",
             "(10/10)*100 = 100%",
             "You sent over $10 and received $10 in return. This is a 100% return."),
-
         (
             "Suppose Player B decides they will send back 200% of whatever Player A sends to them. Then Player A sends $10 which turns into $30. How much money in dollars does Player B return?",
             "($10 * 2.00)= $20",

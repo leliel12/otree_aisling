@@ -196,10 +196,12 @@ class VoteResult(Page):
         return self.subsession.voted_round
 
     def vars_for_template(self):
-        selected = self.group.selected_vote
-        for k, v in Constants.votes:
-            if k == selected:
-                return {"scenario": v}
+        rolea, roleb = (
+            ("A", "B")
+            if self.player.role() == Constants.sender else ("B", "A"))
+        scenario = "{} play - You are Player {} and your partner is Player {}".format(
+            self.group.group_play_type.title(), rolea, roleb)
+        return {"scenario": scenario}
 
 
 # =============================================================================

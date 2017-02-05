@@ -11,7 +11,10 @@
 <div class="row lead">
     <div class="col-md-12">
         <div class="form-group required">
-            <label class="control-label" for="id_ammount_sent_back">Amount the returner decided to sent back to the other Player A:</label>
+            <label class="control-label" for="id_ammount_sent_back">
+                    <p>Amount player A sent to you is: <strong class="text-info">{{group.ammount_given}}</strong>.</p>
+                    <p>Decide how much you would like to send back.</p>
+            </label>
             <div class="controls  field-ammount_sent_back">
                 <div class="input-group slider" data-slider="">
                     <input type="range" name="ammount_sent_back" required="" max="{{max_value}}" id="id_ammount_sent_back" step="1" class="form-control">
