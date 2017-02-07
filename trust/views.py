@@ -169,7 +169,11 @@ class InstructionsVoting(Page):
 
 class Voting(Page):
     form_model = models.Player
-    form_fields = ["vote_game"]
+    form_fields = [
+        'vote_sequential_Sender_Returner',
+        'vote_sequential_Returner_Sender',
+        'vote_simultaneous_Sender_Returner',
+        'vote_simultaneous_Returner_Sender']
 
     def is_displayed(self):
         return self.subsession.voted_round

@@ -70,12 +70,7 @@ class Constants(BaseConstants):
             "($10 * 2.00)= $20",
             "Player B agreed to send 200% and 200% of $10 is $20.")]
 
-    votes = [
-        ("sequential_Sender_Returner", "Sequential play: I’m player A and my partner is player B"),
-        ("sequential_Returner_Sender", "Sequential play: My partner is player A and I’m player B"),
-        ("simultaneous_Sender_Returner", "Simultaneous play: I’m player A and my partner is player B"),
-        ("simultaneous_Returner_Sender","Simultaneous play: My partner is player A and I’m player B"),
-    ]
+    second_choice_perc = [False] * 92 + [True] * 8
 
     reveal_variation = ("reveal", "no-reveal")
     order_variation = ("first_above", "first_below")
@@ -150,6 +145,7 @@ class Group(BaseGroup):
 
     group_play_type = models.CharField(max_length=100, choices=Constants.reveal_variation)
     selected_vote_of_participant_id = models.PositiveIntegerField()
+    second_vote = models.BooleanField()
 
     ammount_given = models.CurrencyField(
         doc="""Amount the sender decided to give to the other player""",
@@ -167,8 +163,17 @@ class Group(BaseGroup):
     def choice_group_play_type_by_vote(self):
         players = self.get_players()
         selected = random.choice(players)
+        self.second_vote = random.choice(Constants.second_choice_perc)
         self.selected_vote_of_participant_id = selected.participant.id
-        pt, o0, o1 = selected.vote_game.split("_")
+        options = {
+            ('sequential', 'Sender'): selected.vote_sequential_Sender_Returner,
+            ('sequential', 'Returner'): selected.vote_sequential_Returner_Sender,
+            ('simultaneous', 'Sender'): selected.vote_simultaneous_Sender_Returner,
+            ('simultaneous', 'Returner'): selected.vote_simultaneous_Returner_Sender
+        }
+        options_sorted = sorted(options.items(), key=lambda e: e[-1])
+        idx = 1 if self.second_vote else 0
+        pt, o0 = options_sorted[0][0]
         self.group_play_type = pt
         if selected.role() != o0:
             players.reverse()
@@ -230,9 +235,6 @@ class Player(BasePlayer):
     tunderstanding_percentage_3 = models.IntegerField(
         verbose_name=Constants.test_of_understanding_percentage[2][0])
 
-    vote_game = models.CharField(
-        max_length=255, choices=Constants.votes, widget=widgets.RadioSelect())
-
     expect_other_player_to_return = models.IntegerField(
         doc="""What do you expect that the other player will return?""",
         min=0, max=300, widget=widgets.SliderInput(),
@@ -244,6 +246,19 @@ class Player(BasePlayer):
         verbose_name='What percentage do you think the other will return? (from 0 to 300%)')
 
     selected_round_for_payoff = models.PositiveIntegerField()
+
+    vote_sequential_Sender_Returner = models.PositiveIntegerField(
+        choices=[1, 2, 3, 4],
+        verbose_name="Sequential play: I’m player A and my partner is player B")
+    vote_sequential_Returner_Sender = models.PositiveIntegerField(
+        choices=[1, 2, 3, 4],
+        verbose_name="Sequential play: My partner is player A and I’m player B")
+    vote_simultaneous_Sender_Returner = models.PositiveIntegerField(
+        choices=[1, 2, 3, 4],
+        verbose_name="Simultaneous play: I’m player A and my partner is player B")
+    vote_simultaneous_Returner_Sender = models.PositiveIntegerField(
+        choices=[1, 2, 3, 4],
+        verbose_name="Simultaneous play: My partner is player A and I’m player B")
 
     def role(self):
         return {1: Constants.sender, 2: Constants.returner}[self.id_in_group]
