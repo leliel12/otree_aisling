@@ -199,11 +199,11 @@ class Group(BaseGroup):
 
     def set_ammount_sent_back(self):
         self.ammount_sent_back = (
-            self.ammount_given * self.percentage_sent_back / 100.)
+            float(self.ammount_given) * float(self.percentage_sent_back) / 100.)
 
     def set_percentage_sent_back(self):
         self.percentage_sent_back = (
-            self.ammount_sent_back * 100. / self.ammount_given)
+            float(self.ammount_sent_back) * 100. / float(self.ammount_given))
 
     def set_payoff(self):
         for player in self.get_players():
