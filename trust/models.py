@@ -147,17 +147,17 @@ class Group(BaseGroup):
     selected_vote_of_participant_id = models.PositiveIntegerField()
     second_vote = models.BooleanField()
 
-    ammount_given = models.CurrencyField(
+    ammount_given = models.FloatField(
         doc="""Amount the sender decided to give to the other player""",
-        min=0, max=Constants.amount_allocated , widget=widgets.SliderInput(),
+        min=0, max=Constants.amount_allocated , widget=widgets.SliderInput(attrs={'step': '0.1'}),
         verbose_name='I will give (from 0 to %i)' % Constants.amount_allocated)
 
     percentage_sent_back = models.PositiveIntegerField(
         verbose_name="Percentage to return (from 0 to 300%)", min=0, max=300,
          widget=widgets.SliderInput())
 
-    ammount_sent_back = models.CurrencyField(
-        widget=widgets.SliderInput(),
+    ammount_sent_back = models.FloatField(
+        widget=widgets.SliderInput(attrs={'step': '1'}),
         verbose_name="""Amount the returner decided to sent back to the other Player A""")
 
     def choice_group_play_type_by_vote(self):

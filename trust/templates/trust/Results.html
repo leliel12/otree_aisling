@@ -13,19 +13,19 @@
         <ul>
             <li>
                 Player <strong>A</strong>
-                give to player <strong>B</strong> <strong class="text-info">{{group.ammount_given}}</strong>
+                give to player <strong>B</strong> <strong class="text-info">{{group.ammount_given|c}}</strong>
             </li>
             <li>
                 Player <strong>B</strong> receives <strong class="text-warning">{{return_max|c}}</strong>
                 (<code>{{group.ammount_given}} * 3</code>)
             </li>
             <li>
-                Finally the Player <strong>B</strong> return <strong class="text-success">{{group.ammount_sent_back}}</strong>
+                Finally the Player <strong>B</strong> return <strong class="text-success">{{group.ammount_sent_back|c}}</strong>
             </li>
             <li>
                 <strong>
-                    Thus <span class="text-info">Player A has {{group.sender_payoff}}</span> and
-                         <span class="text-success">Player B has {{group.returner_payoff}}</span>.
+                    Thus <span class="text-info">Player A has {{group.sender_payoff|c}}</span> and
+                         <span class="text-success">Player B has {{group.returner_payoff|c}}</span>.
                 </strong>
             </li>
         </ul>
