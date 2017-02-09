@@ -26,7 +26,7 @@ class Constants(BaseConstants):
     name_in_url = 'trust'
     players_per_group = 2
 
-    normal_game_rounds = 2
+    normal_game_rounds = 20
     half_normal_game_rounds = int(normal_game_rounds/2)
 
     voted_rounds = 5

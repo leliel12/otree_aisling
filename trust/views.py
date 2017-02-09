@@ -295,18 +295,18 @@ class Results(Page):
 
 
 page_sequence = [
-    #~ GamePortionOfExperiment,
-    #~ TestOfUderStanding,
-    #~ AnswersTestOfUderStanding,
+    GamePortionOfExperiment,
+    TestOfUderStanding,
+    AnswersTestOfUderStanding,
 
-    #~ ExpectationsAndPercentages,
-    #~ TestOfUderStandingPercentages,
-    #~ AnswersTestOfUderStandingPercentages,
+    ExpectationsAndPercentages,
+    TestOfUderStandingPercentages,
+    AnswersTestOfUderStandingPercentages,
 
     AsignmentPage,
 
-    #~ Instructions,
-    #~ Expect, WaitForExpectation,
+    Instructions,
+    Expect, WaitForExpectation,
 
     InstructionsVoting,
     Voting, WaitVote, VoteResult,
