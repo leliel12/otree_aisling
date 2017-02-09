@@ -26,7 +26,7 @@ class Constants(BaseConstants):
     name_in_url = 'trust'
     players_per_group = 2
 
-    normal_game_rounds = 20
+    normal_game_rounds = 2
     half_normal_game_rounds = int(normal_game_rounds/2)
 
     voted_rounds = 5
@@ -149,12 +149,13 @@ class Group(BaseGroup):
 
     ammount_given = models.FloatField(
         doc="""Amount the sender decided to give to the other player""",
-        min=0, max=Constants.amount_allocated , widget=widgets.SliderInput(attrs={'step': '0.1'}),
+        min=0, max=Constants.amount_allocated,
+        widget=widgets.SliderInput(attrs={'step': '1'}),
         verbose_name='I will give (from 0 to %i)' % Constants.amount_allocated)
 
-    percentage_sent_back = models.PositiveIntegerField(
+    percentage_sent_back = models.FloatField(
         verbose_name="Percentage to return (from 0 to 300%)", min=0, max=300,
-         widget=widgets.SliderInput())
+         widget=widgets.SliderInput(attrs={'step': '1'}))
 
     ammount_sent_back = models.FloatField(
         widget=widgets.SliderInput(attrs={'step': '1'}),
