@@ -15,12 +15,19 @@
                     <p>Amount player A sent to you is: <strong class="text-info">{{group.ammount_given}}</strong>.</p>
                     <p>Decide how much you would like to send back.</p>
             </label>
-            <div class="controls  field-ammount_sent_back">
-                <div class="input-group slider" data-slider="">
-                    <input type="range" name="ammount_sent_back" required="" max="{{max_value}}" id="id_ammount_sent_back" step="1" class="form-control">
-                    <span class="input-group-addon" data-slider-value="" title="current value"></span>
-                </div>
-            </div><!--- .controls -->
+            <table>
+                <tr>
+                    <td style="width: 400px">
+                        <div class="input-group slider" data-slider="">
+                            <input type="range" name="ammount_sent_back" required="" max="{{max_value}}" id="id_ammount_sent_back" step="1" class="form-control">
+                            <span class="input-group-addon" data-slider-value="" title="current value"></span>
+                        </div>
+                    </td>
+                    <td>
+                        <tt class="text-info">(<span id="sentBackPercentage"></span> %)</tt>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -32,6 +39,26 @@
 
 {% include "trust/includes/auto_trust_score.html" %}
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    var total = parseFloat({{group.ammount_given}});
+    var $sentBack = $("#id_ammount_sent_back");
+    var $sentBackPercentage = $("#sentBackPercentage");
+
+    function updatePerc(){
+        var val = parseFloat($sentBack.val());
+        var perc = val / total * 100.
+        $sentBackPercentage.text(perc);
+    }
+
+    $sentBack.change(updatePerc);
+    updatePerc();
+
+});
+</script>
 {% endblock %}
 
 
